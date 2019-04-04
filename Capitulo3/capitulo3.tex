@@ -1,0 +1,197 @@
+%?????????????????????????
+% Nombre: capitulo3.tex  
+% 
+% Texto del capitulo 3
+%---------------------------------------------------
+
+\chapter{Marco de trabajo}
+\label{marco}
+
+Antes de comenzar a abordar el estado del arte del análisis de tendencias o \textit{minería de opiniones}, y más concretamente su aplicación en el ámbito de la web 2.0, es necesario introducir algunos conceptos teóricos que nos permitan comprender mejor los conceptos de los trabajos de los que discutiremos en el capítulo \ref{arte}. Sobre ello, hablaremos en este capítulo.
+
+\section{Minería de medios sociales digitales}
+
+La reciente incursión de las redes sociales digitales en nuestro mundo han cambiado el paradigma de trabajo, económico y social de la sociedad. Dada su importancia, diversos sectores y ámbitos de estudio han puesto el punto de mira en el estudio de estos nuevos paradigmas sociales. La minería de datos es uno de los campos que estudia los medios sociales digitales originando una nueva vertiente de la misma denominada como  \textbf{minería de medios sociales}. 
+
+La \textbf{minería de medios sociales}, acorde a  P. Gundecha \cite{liu1}, comprende el proceso de representar, analizar y extraer de datos provenientes de medios sociales patrones con significado y valor. La minería de medios sociales es por tanto un campo multidisciplinar y su alcance puede ser dividido en los siguientes ámbitos de aplicación:
+
+\begin{itemize}
+	\item \textbf{Análisis de comunidades}: Por medio de teoría de grafos, se obtienen comunidades dentro de nuestra población objetivo. Estos pueden ser usuarios con similares intereses, gustos o preferencias.
+	\item  \textbf{Sistemas de Recomendaciones colaborativos} : Se basa en la hipótesis en que usuarios similares tendrán gustos similares por lo que se pueden afinar los sistemas de recomendación teniendo estos factores en cuenta. 
+	\item  \textbf{Estudios de Influencia}: Se basan en la obtención de la influencia de marcas o personas en determinados sectores. 
+	\item  \textbf{Difusión de la información}: En un mundo saturado de información como el actual, saber de qué manera tendremos que difundirla para llegar a un mayor número de personas es un factor decisivo. Esto es lo que estudia este área dentro de la minería de medios sociales. 
+	\item  \textbf{Privacidad, seguridad y veracidad}: Este punto se centra en la verificación automática de cuentas falsas, identificación de fuentes de spam así como de la identificación de la veracidad de información o identificación de problemas de violación de privacidad. 
+	
+	\item \textbf{Opinion mining}: Este punto, es uno de los más estudiados en \textbf{minería de medios sociales}, podemos encontrarlo junto al análisis de sentimientos aunque como veremos en el punto siguiente hay ligeras diferencias. Dada la relevancia de cara al presente trabajo ampliaremos este concepto en la sección siguiente. 
+	\end{itemize}
+
+\section{Minería de opiniones}
+\label{mineriaopiniones}
+La minería de opiniones, conocida en el ámbito internacional como \textit{opinion mining}, es una vertiente al alza dentro de la famosa minería de textos y tiene su raíz por tanto en las técnicas de procesamiento de lenguaje natural. Si analizamos la web o las publicaciones en redes sociales, encontraremos cientos de miles de \textit{reviews} o posts de personas acerca de un producto o marca, el potencial de analizar la finalidad de esta opinión, ver si es una critica constructiva, si se promueve el producto o si simplemente lo crítica puede suponer una gran ventaja competitiva para las empresas y marcas, por ello, son más las que cada vez usan estas técnicas en sus procesos de vigilancia tecnológica u obtención del \textit{feedback} del consumidor. 
+
+Como todas las especializaciones o vertientes dentro del área de la minería de textos, en \textit{opinion mining} tratamos por tanto de obtener información relevante y de valor a partir de textos, como los que hemos mencionado anteriormente, blogs, tweets o diversas redes sociales, de ahí que sea estudiada dentro del proceso de \textit{social media mining} descrito anteriormente, ya que podríamos decir que una técnica complementa a la otra. Pero, ¿qué es una opinión? Acorde a la definición dada por Liu en \cite{liu}, una opinión es una quíntupla compuesta de los siguientes elementos:
+
+
+\begin{enumerate}
+\item \textbf{Entidad}: Puede ser un objeto, persona, servicio, lugar sobre el que se emite la opinión.
+\item \textbf{Emisor}: Entidad que emite la opinión. 
+\item \textbf{Aspecto}: Es un aspecto que se valora sobre la \textbf{entidad} en cuestión.  
+\item \textbf{Orientación}: Puede ser positiva, negativa o neutra. 
+\item \textbf{Momento temporal}: Corresponde al momento en que la opinión se emite, ya que mismos \textbf{emisores, entidades y aspectos} podrán cambiar de \textbf{orientación} en momentos distintos, por lo que es un registro importante a tener en cuenta. 
+\end{enumerate}
+
+Pese a que aún no hemos entrado en el estudio de las redes sociales ni de la \textbf{anatomía} de un tweet, estos serán la fuente y la unidad mínima de información en nuestro proyecto. En el punto \ref{anatomia} trazaremos un claro paralelismo entre esta definición y los tweets en concreto. 
+
+La minería de opiniones, se centrará por tanto en obtener de textos que podrán provenir de diferentes fuentes, \textit{aspectos} de opinión, esto difiere  en cierta medida del proceso de \textit{análisis de sentimientos} \cite{diff} \cite{diff2} que se centra desde un enfoque mayormente supervisado en la clasificación de estas entidades textuales acorde a sentimientos u orientación. Analizando estos \textit{aspectos} y sus implicaciones sobre su \textit{entidad} relacionada, podremos obtener por tanto ventajas muy relevantes como por ejemplo saber qué opinan los consumidores de una marca en concreto, posicionar productos u obtener análisis de confianza entre otras muchas aplicaciones. 
+
+En el presente proyecto, obviaremos la rama supervisada, para centrarnos en el enfoque no supervisado dentro del campo de la \textit{minería de opiniones}, en el que no conocemos las clases o \textit{etiquetas} a priori, aunque sí que se incluye una cierta polarización básica sobre las opiniones, ya que es información relevante en el conjunto del proceso. Las técnicas de aprendizaje no supervisado que estudiaremos, son el \textit{clustering} y las reglas de asociación, ambas las trataremos en el siguiente punto.
+
+\section{Técnicas de aprendizaje no supervisado}
+\label{tecnicas}
+Pese a la gran relación que existe entre las técnicas mencionadas anteriormente, estas difieren en factores tan dispares como su utilización, su aplicación o la información que aportan sobre un problema. El análisis de estos factores nos ayudará a elegir la técnica o el conjunto de técnicas adecuadas para cada problema concreto, es decir, podemos partir de enfoques diferentes que se apoyen y retroalimenten mutuamente. Cabe destacar y diferenciar las  técnicas más relevantes aplicadas a los problemas inherentes al estudio del análisis de tendencias, para así poder comprender mejor los siguientes capítulos y nuestro problema en cuestión. 
+
+\subsection{Clustering}
+\label{cluster}
+
+Las técnicas de clustering, se basan en la obtención de grupos o clases en función de un determinado conjunto de muestras o población, sin conocer a priori estas clases. Las técnicas de clustering, están enmarcadas dentro del aprendizaje no supervisado y basan la obtención de estos grupos y clases en dos factores como pueden ser la distancia o la similitud. De todos los problemas mencionados anteriormente estas técnicas son muy utilizadas en estudios relativos al marketing y estudios sociales, donde es relevante obtener agrupaciones. Un ejemplo concreto sería discernir entre los distintos tipos de cliente que compran regularmente en un supermercado, para poder ofrecer ofertas concretas en función del grupo de manera que estas sean personalizadas en función de cada cliente, permitiendo así que los beneficios se incrementen \cite{mkt}. 
+
+\subsection{Reglas de asociación}
+\label{reglas}
+
+La reglas de asociación dentro del ámbito de la informática no son muy distintas, al menos en el concepto general, de la búsqueda de relaciones en cualquier ámbito. Las reglas de asociación se enmarcan dentro del aprendizaje automático o minería de datos y no es algo nuevo sino que llevan siendo usadas y estudiadas desde mucho tiempo atrás, datando una de las primeras referencias a estas, del año 1993 \cite{agrawal}. Su utilidad es la de obtener conocimiento relevante de grandes bases de datos y se representan según la forma \textbf{X->Y} donde \textbf{X}, es un conjunto de ítems que representa el antecedente e \textbf{Y} un ítem o conjunto de ítems consecuente, por ende, podemos concluir que los ítems \textbf{consecuentes}  guardan una relación de co-ocurrencia con los ítems \textbf{antecedentes}. Esta relación puede ser obvia en algunos casos, pero en otros necesitará del uso de algoritmos de extracción de reglas de asociación que podrán desvelar relaciones no triviales y que puedan ser de mucho valor.  Podremos presentar por tanto a las reglas de asociación, como un método de extracción de relaciones aparentemente ocultas entre ítems o elementos dentro de bases de datos transaccionales, \textit{datawarehouses} u otros tipos de almacenes de datos de los que es interesante extraer información de ayuda en el proceso de toma de decisiones de las organizaciones. 
+
+\subsubsection{Medidas}
+
+La forma clásica de medir la bondad o ajuste de las reglas de asociación a un determinado problema, vendrá dada por las medidas del \textbf{soporte}, la \textbf{confianza} y el \textbf{lift}, que podremos definir de la siguiente manera:
+
+\begin{itemize}
+
+	\item Soporte: El soporte de un ítem se representa como \textit{supp (X)}, y representa la fracción de las transacciones que contienen al ítem X entre el total de transacciones de la base de datos (D). El \textit{supp(X $\rightarrow$ Y)} sería por consiguiente el total de transacciones que contiene tanto al ítem X como al ítem Y, y quedaría definido con la siguiente ecuación: 
+	
+	\begin{equation}
+	supp(X \rightarrow Y) = {supp(X \cup Y)}
+	\label{eq1}
+	\end{equation}
+
+	\item Confianza: Se representa como \textit{conf (X$\rightarrow$Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, de entre aquellas transacciones donde aparece el ítem X. Su ecuación sería:
+	
+	\begin{equation}
+	conf(X \rightarrow Y) = \frac{supp(X \rightarrow Y)}{supp(X)}
+	\end{equation}
+	
+	\item Lift: El \textit{lift}, es una medida útil para evaluar la independencia entre los ítems de una determinada regla  de asociación. En una regla del tipo \textit{lift (X$\rightarrow$Y)}, esta medida representa el grado en que X tiende a ser frecuente cuando A está presente en la regla, o viceversa. El lift, quedará definido matemáticamente de la siguiente manera:
+	\begin{equation}
+	lift(X \rightarrow Y) = \frac{conf(X \rightarrow Y)}{supp(Y)}
+	\end{equation}
+\end{itemize}
+
+Pese a que estas medidas son las más comunes y extendidas, hay innumerables propuestas de medidas complementarias en la literatura, tales como la \textbf{convicción, factor de certeza, diferencia absoluta de confianza} entre otras muchas. 
+
+\subsubsection{Obtención de reglas}
+
+Si nos centramos en la manera de obtener las reglas, estas pueden abordarse desde dos perspectivas, solución por fuerza bruta (prohibitivo) o desde un enfoque basado en dos etapas. La primera de estas etapas es la generación de itemsets frecuentes, a partir de los cuales, en la segunda etapa se obtienen las reglas de asociación, que tendrán, si todo ha ido correctamente, un valor de confianza aceptable o elevado. La primera etapa de obtención de itemsets frecuentes puede conllevar problemas de memoria ya que en una base de datos con muchos ítems o transacciones el número de estos será muy elevado, es por ello que surgen aproximaciones en el proceso de representación de itemsets frecuentes que nos permitirán obtener estos en bases de datos de gran tamaño. Estas aproximaciones son:
+
+\begin{itemize}
+\item Itemsets maximales: Son aquellos itemsets frecuentes para los que ninguno de los superconjuntos inmediatos al itemset en cuestión, son frecuentes. A partir de estos podremos recuperar todos los itemsets frecuentes de manera sencilla sin tener que mantenerlos todos en memoria. 
+\item Itemsets cerrados: Son aquellos itemsets frecuentes para los que ninguno de los superconjuntos inmediatos al itemset en cuestión, tienen un soporte igual. Con esta aproximación, tendremos soportes e itemsets frecuentes que podremos recuperar fácilmente, aunque al ser más numerosos que los maximales mantenerlos en memoria puede llegar a ser complicado.  
+\end{itemize}
+
+
+\subsubsection{Aplicaciones}
+
+Su uso ha sido extendido en campos como las telecomunicaciones, gestión de riesgos, control de inventarios \cite{reglas1} \cite{reglas2} o almacenes y recientemente en el minado de redes sociales representando en este ámbito una de las vertientes más estudiadas actualmente en campos de estudio como por ejemplo el análisis de sentimientos \cite{sentimientos}. Dada la importancia de estas técnicas en nuestro trabajo las estudiaremos con detalle en el capítulo \ref{arte}, donde veremos su aplicación en diversos trabajos relacionados en menor o mayor medida con el nuestro.
+
+\section{Big Data}
+
+Como hemos visto en puntos anteriores, la `explosión'  y expansión de la era digital ha hecho que el volumen de datos de los que disponemos, así como de las fuentes que generan estos datos se hayan multiplicado exponencialmente. Erraríamos por tanto, si pensáramos que las técnicas tradicionales de carga, procesado y análisis de datos tradicionales pudieran ser aplicadas a estos grandes volúmenes de datos, por lo que ha sido necesario la implantación y creación de nuevas técnicas capaces de lidiar con estos grandes volúmenes de datos, y a esto es lo que conocemos como \textit{Big Data Analytics}. 
+
+\subsection{Historia}
+
+Pese a que es un término que llevamos pocos años escuchando, su acuñamiento data del año 1998, donde el libro \textit{Predictive data mining: a practical guide.} \cite{bdm1}, ya hacía referencia a los grandes volúmenes de datos y sus problemas relacionados, bajo el término de BigData, pero no fue hasta entrado el año 2000 cuando empezaron a aparecer los primeros artículos académicos, que podrían enmarcarse dentro del BigData. Pocos años después, con la aparición y expansión de las redes sociales, estas empresas necesitaron nuevos paradigmas y algoritmos para procesar esta gran cantidad de información que venía de las mismas. Fue en este punto, y tras otros estudios como el llevado a cabo por Alex `Sandy' Pentland en el MIT \cite{bdm2}, cuando se comenzó a hablar de las \textbf{3 V's del Big Data}  \cite{bdm3}, tomando por tanto este nuevo concepto su forma actual y comenzando la expansión que le llevaría a ser hoy en día una de las `tecnologías' más punteras.  
+ 
+\subsection{Las V's del Big Data}
+
+En este punto, entraremos a hablar de las conocidas \textbf{V`s del Big Data}, adjetivos que en su conjunción lo definen como tal y que en sus orígenes, fueron 3, aunque pronto se fueron complementando y extendiendo, hasta nuestros días donde el BigData quedaría caracterizado por 5 V`s:
+
+\begin{enumerate}
+\item \textbf{Volumen}: La relación de esta palabra con el concepto Big Data es clara. Y es que el tamaño de los datos continúa aumentando, hasta volúmenes de los mismos nunca antes vistos. 
+\item \textbf{Variedad}: Los tipos de los datos son muy distintos y provienen de fuentes muy dispares. 
+\item \textbf{Velocidad}: Los datos son muy volubles y deben ser recogidos y analizados rápidamente, véase por ejemplo en el concepto de una aplicación de Big Data en bolsa, donde tan solo un segundo puede suponer perdidas o beneficios muy importantes. 
+\item \textbf{Variabilidad}: Los datos pueden cambiar de estructura o interpretación. 
+\item \textbf{Valor}: En última instancia, sin valor, no hay Big Data y es que estos datos una vez procesados deben aportar conocimiento y valor a la empresa y organización. 
+\end{enumerate}
+ 
+\subsection{Aplicaciones} 
+ 
+ Las aplicaciones del BigData, dado su interés, están presentes en numerosas áreas, algunas de las cuales pueden ser las siguientes:
+ 
+ \begin{itemize}
+ \item{Negocios y marketing}: Análisis de comportamientos en el comprador, detección de comunidades. 
+ \item{TIC}: En este sector los beneficios son muy relevantes y evidentes, como por ejemplo reducir el tiempo de procesamiento de horas e incluso días a unos pocos segundos. 
+ \item{Salud y ciencia}: En este área el BigData ha supuesto una auténtica revolución. Disponer de nuevos algoritmos y formas de procesar datos más eficientes y potentes han supuesto la posibilidad de obtener el mapa genético de una persona en concreto a velocidades y costes antes nunca pensados, esto tiene grandes beneficios para la ciencia y la salud de esta persona que podrá incluso prevenir enfermedades futuras. 
+ \end{itemize}
+ 
+Todas estas aplicaciones, tienen como último fin mejorar los procesos de negocio y en última medida la vida diaria de las personas de a pie, lo que hace que aunque el concepto del Big Data esté aún en sus albores de lo que podrá ser en un futuro sus beneficios pueden notarse desde ya en el día a día de la sociedad. 
+ 
+ 
+ \section{Twitter}
+
+Twitter nace en Estados Unidos en el año 2006, partiendo de la idea de los antiguos mensajes de texto (SMS) limitó el número de caracteres en cada tuit a 140 favoreciendo que el intercambio de información fuera rápido, conciso y fluido, dando comienzo a una nueva vertiente en la web 2.0 que posteriormente se conocería como \textit{microblogging}.
+
+El crecimiento de la red social en los últimos años ha sido exponencial, hecho que no la ha alejado de tener serios problemas de rentabilidad, pero que confirman su éxito y aceptación por parte del gran público. A principios de 2010 el número de usuarios activos al mes de la misma se fijaba en torno a los 30 millones, número claramente superado en la actualidad donde se estima en torno a los 313 millones de usuarios activos mensuales (Dreamgrow Marketing, 2017).
+
+Recientemente, la red social ha aumentado el número de palabras en cada tuit a 280, lo que en conjunción con nuevas medidas como la facilidad para incluir videos o demás contenido multimedia y lo vistoso de estas publicaciones con un diseño intachable, constatan la salud de la red social. 
+
+\subsection{Funcionamiento}
+
+El funcionamiento de la red social en sí trivial, en esta podemos acotar un rol muy sencillo, el de \textbf{seguidor} que serán aquellas personas que quieren seguir nuestras publicaciones y de las cuales podremos ser seguidores o no, es decir, puede no es de obligada existencia el carácter bidireccional en una relación de `amistad' dentro de esta red social al igual que existe en otras redes sociales como por ejemplo Facebook. 
+
+Este tipos de relaciones, son muy interesantes y han sido estudiadas en la literatura como parte de la teoría de grafos y ha sido extendido a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle en las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows} ). Por otro lado, sí que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
+
+\subsection{Anatomía de un tuit}
+\label{anatomia}
+
+En la figura \ref{tuit}, podemos ver el ejemplo de un tuit real. Este puede tener variantes como enlaces o imágenes, pero esencialmente es texto y algunos \textit{hashtags} o etiquetas que sirven para acotar u opinar sobre temas en concreto.  
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=14cm]{./Capitulo3/imagenes/tuit.png}
+\caption{Ejemplo de un tuit.}
+\label{tuit}
+\end{figure}
+
+Atendiendo al ejemplo anterior (figura \ref{tuit}), estaríamos hablando sobre \textit{data science}, R, Pythton y el portal Data Camp. Cabe destacar, que aunque en este caso todos van precedidos del carácter \# esto no tendría porque ser así, y alguna de estas palabras podría aparecer sin éste. 
+
+Tracemos ahora por tanto un pequeño paralelismo entre el tuit del ejemplo anterior y la definición dada por Liu de qué es una opinión que hemos podido ver en en la sección \ref{mineriaopiniones}. 
+
+\begin{enumerate}
+\item \textbf{Entidad}: En el caso de un tuit, la entidad sería sobre lo que se opina. En el caso del ejemplo anterior, sería \#DataCamp. 
+\item \textbf{Emisor}: El paralelismo es obvio, el emisor es en el caso de un tuit la persona que lo tuitea en este caso, el usuario \@joseangeldiazg. 
+\item \textbf{Aspecto}: Recoge lo que se valora, y aunque puede parecer abstracto del anterior tuit podemos deducir que se valora la capacidad de un portal en internet para formar a las personas sobre conceptos tales como \textit{data science}, R o Python. 
+\item \textbf{Orientación}: En el caso que nos ocupa, es positiva. 
+\item \textbf{Momento temporal}: Este elemento de la quintupla definida por Liu, al igual que el emisor siempre está presente dentro de un tuit y en este caso corresponde con el 26 de julio de 2017. 
+\end{enumerate}
+
+Es por tanto evidente, la relación entre un tuit y una opinión, poniendo al descubierto la importancia de este tipo de datos en el proceso y estudio de la minería de opiniones. Por otro lado, también es menester remarcar que no todos los tuits podrían enmarcarse dentro de la definición de opinión, como por ejemplo el que podemos ver en al figura \ref{tuit2} que simplemente es informativo. 
+
+\begin{figure}
+\includegraphics[width=8cm]{./Capitulo3/imagenes/tuit2.png}
+\centering
+\caption{Ejemplo de un tuit que no sería enmarcado como opinión.}
+\label{tuit2}
+\end{figure}
+
+\subsection{Twitter API}
+\label{api}
+Twitter abrió sus datos al mundo al hacer disponible una serie de APIs mediante las cuales se permite a terceros tanto la obtención de estos datos para su estudio como la implementación de software que trabaje sobre estos datos. Estas APIs necesitan del protocolo de seguridad y autenticación OAuth, además ofrecen ciertas limitaciones a la hora de obtener los datos por lo que solo se permiten entre 150 y 300 solicitudes por hora y además hay una ventana temporal que cerrará el flujo de información cada 15 minutos. Las APIs disponibles son:
+
+\begin{itemize}
+\item \textbf{Search API}: Obtiene los tuits de hasta 7 días, es similar a lo que nos ofrecería la búsqueda básica de Twitter en la interfaz web al buscar por un término. 
+\item \textbf{Streaming API}: Obtiene información en tiempo real. 
+\item \textbf{REST API}: Obtiene los datos mediante HTTP, el formato puede venir en XML, HTML, o JSON, la limitación aquí viene definida por el número de resultados devueltos por página que no puede ser superior a 3200 tweets. 
+\end{itemize}
+
+Como podemos observar, estas limitaciones pueden suponer un gran problema a la hora de obtener una gran cantidad de datos para que nuestro trabajo tenga un cierto rigor y peso, por ello, en los puntos siguientes ahondaremos en el proceso seguido y tecnologías usadas para la obtención y almacenamiento de un gran volumen de datos a pesar de estas restricciones. 
+\pagebreak
+\clearpage
+%---------------------------------------------------

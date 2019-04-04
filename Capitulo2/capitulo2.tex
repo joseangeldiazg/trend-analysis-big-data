@@ -1,0 +1,147 @@
+%---------------------------------------------------
+% Nombre: capitulo2.tex  
+% 
+% Texto del capítulo 2
+%---------------------------------------------------
+
+\chapter{Planificación del proyecto}
+
+Una correcta planificación puede suponer el éxito o rotundo fracaso del proyecto en cualquier ámbito o disciplina aplicable. Si esta disciplina es a su vez la ingeniería en cualquiera de sus vertientes, la necesidad de una correcta planificación se acentúa aún más llegando a convertirse en una de las partes cruciales y más importantes del proyecto en sí. En ciencia de datos, esta parte no es menos importante, ya que una correcta planificación temporal que ayude al científico de datos, a distribuir su tiempo y esfuerzos entre las distintas partes que integran un proyecto de análisis de datos (integración, preprocesado, minería de datos ) puede ser de vital importancia de cara al triunfo o el fracaso del proyecto. 
+
+En este capítulo haremos un resumen de la planificación del proyecto versando este en los recursos software, humano y hardware empleados así como de la planificación temporal seguida por el mismo.
+
+\section{Gestión de recursos}
+
+En esta sección se hará un repaso por los recursos utilizados, siendo estos como vimos en la introducción del capítulo, tres categorías bien diferenciadas, recursos de personal, hardware y software los cuales son a su vez los tres pilares clave de un proyecto de ingeniería informática, a pesar de que en este caso que nos compete esté más enfocado al ámbito de investigación que al del diseño y desarrollo de un producto final, como sería el caso de un proyecto íntegro de ingeniería del software.
+
+\subsection{Personal}
+\label{personal}
+El personal del proyecto radica exclusivamente en el autor José Ángel Díaz García, encargado de todas las partes del mismo, bajo la supervisión de los tutores. 
+
+\subsection{Hardware}
+\label{hardware}
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{cc} \toprule
+		Elemento & Características \\ \midrule
+		Procesador & 2,6 GHz Intel Core i5 \\
+		Memoria Ram &  8 GB 1600 MHz DDR3 \\
+		Disco duro & SATA SSD de 120 GB\\ \bottomrule
+		\end{tabular}
+	\end{center}
+\caption{Especificaciones técnicas de la máquina personal usada.}
+\label{ord_personal}
+\end{table}
+
+
+Además de la máquina personal se ha utilizado un cluster de procesado de datos para el proceso de \textit{named entity recognition (NER)}, que es sin duda el más costoso computacionalmente hablando. Este cluster está formado por cuatro máquinas con las especificaciones técnicas que podemos ver en la tabla \ref{cluster}.
+
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{cc} \toprule
+		Elemento & Características \\ \midrule
+		Procesador & Intel Xeon E5-2665 \\
+		Memoria Ram &  32 GB  \\
+		Nucleos & 8 \\ \bottomrule
+		\end{tabular}
+	\end{center}
+\caption{Especificaciones técnicas del cluster.}
+\label{cluster}
+\end{table}
+
+
+\subsection{Software}
+
+El software utilizado es en su práctica totalidad software libre, siendo el restante software propietario cuyas licencias vienen incluidas en el sistema operativo de la máquina usada siendo este OS X . El software usado es:
+
+
+\begin{itemize}
+\item \textbf{TeXShop}: procesador de textos basado en Latex usado para elaborar la documentación del presente proyecto. 
+\item \textbf{Scrapy}: Librería de Python que ofrece un \textit{framework} para la creación de \textit{web crawlers}.
+\item \textbf{Twitter}: Red social de microblogging. 
+\item \textbf{MongoDB}: Base datos noSQL usada como almacén persistente de los datos.
+\item \textbf{RStudio}: Entorno de Desarrollo en R donde se ha realizado la mayor parte del proceso del proyecto. 
+\item \textbf{RSpark}: Librería para R que ofrece grandes ventajas a la hora de procesar grandes cantidades de datos bajo este lenguaje de programación. 
+\end{itemize}
+
+
+\section{Planificación temporal}
+
+La parte más importante de esta sección radica en la planificación temporal seguida en los meses de trabajo que el proyecto ha ocupado, siendo este elaborado continuamente etapa a etapa. 
+
+\begin{enumerate}
+\item \textbf{Obtención de información y estudio del tema}: La primera parte del proyecto consistió en la obtención de información acerca de la minería de opiniones y de las reglas de asociación así como de la aplicación de estas en el ámbito de la minería de redes sociales y más concretamente en Twitter. En este primer proceso de recopilación de información también se estudiaron temas más genéricos dentro del Big Data y la minería de datos con el fin de tener una visión global de las herramientas y técnicas a estudiar y usar en el problema. Esta etapa aunque ha sido continua, tuvo especial importancia desde mediados de noviembre de 2016 a finales de diciembre de ese mismo año. 
+
+\item \textbf{Estudio del estado del arte}: Tras obtener buena cantidad de información y comprender el problema a resolver, se realizó un estudio exhaustivo del estado del arte de la materia así como a comenzar a desarrollar los primeros capítulos de la memoria en cuestión. Esta etapa tuvo lugar desde finales de diciembre de 2016 hasta finalizar el proyecto debido a que se ha realizado un estudio continuo de los nuevos trabajos que iban apareciendo sobre la temática. 
+ 
+ \item \textbf{Selección de herramientas}: Una vez fijado Twitter como medio objetivo, se llevó a cabo una investigación sobre las herramientas más oportunas para la obtención de los tuits de la red social. Esta etapa tuvo lugar entre final de junio y principio de julio de 2017. 
+ 
+\item \textbf{Obtención del dataset}: Para poder comenzar a hacer pruebas y desarrollar el sistema basado en reglas, una vez elegida la herramienta, se comenzó a obtener datos de la red social durante unos días ininterrumpidamente para tener un conjunto de entrenamiento suficiente. Esta tarea tomo lugar a mediados de julio de 2017. 
+
+\item \textbf{Carga y preprocesado de los datos}: Una vez obtenidos los datos y almacenados en MongoDB se hizo necesaria su carga y limpieza, esta tarea no es trivial ya que necesitó de técnicas de procesado del lenguaje natural y aplicaciones de Big Data para poder trabajar con un volumen de datos muy elevado en una máquina estándar como es el caso. Esta tarea fue llevada a cabo entre los meses de julio y octubre de 2017. 
+
+\item \textbf{Limpieza de datos}: Dado que partimos de un problema no supervisado, donde los datos carecían de filtrado alguno, esta fue una de las etapas que más tiempo tomó. Tras la aplicación de técnicas básicas de limpieza en minería de textos, se aplicaron técnicas experimentales de procesamiento del lenguaje natural para filtrar los datos y poder poner el foco del problema en aquel subconjunto de datos que hace referencia a personas. Dado el volumen de datos esta etapa precisó el uso de un cluster de procesado así como de técnicas de programación paralela y concurrente que podríamos enmarcar como Big Data. Esta tarea fue llevada a cabo entre octubre y diciembre de 2017.
+
+\item \textbf{Análisis exploratorio de datos}: Sobre el dataset final, se han realizado gráficos y estudios estadísticos básicos con el fin de conocer y entender mejor la naturaleza de los mismos. Esta tarea fue llevada a cabo durante el mes de diciembre de 2017. 
+
+\item \textbf{Análisis de sentimientos}: Sobre los datos, se aplicaron técnicas de análisis de sentimientos para poder realizar gráficos que nos ayudaran a discernir qué palabras o expresiones estaban relacionadas en nuestro dataset con sentimientos para en el paso de obtención de reglas de asociación poder polarizar en cierta medida las mismas, o tener al menos, otro enfoque subjetivo de éstas, pudiendo así desambiguar en cierta medida las mismas. Esta tarea fue llevada a cabo durante el mes de diciembre de 2017. 
+
+\item \textbf{Reglas de asociación y experimentación}: Con los datos limpios y estudiados, se obtienen un conjunto de reglas de asociación sobre la temática y se experimenta sobre el mismo obteniendo distintos conjuntos en función de itemsets frecuentes, así como de la variación de los parámetros de confianza y soporte en las reglas. Esta tarea comprendió los meses de diciembre de 2017 y enero de 2018. 
+
+\item \textbf{Elaboración de la memoria}: La memoria ha constado de una elaboración continua, ya que continuamente se han ido añadiendo y refinando capítulos en función de cómo se avanzaba en el proceso de desarrollo y experimentación. Los meses que ha comprendido su elaboración, han sido por tanto desde primeros de febrero de 2017 hasta enero de 2018. 
+
+\end{enumerate}
+
+
+\section{Costes}
+
+Tras el análisis de los recursos empleados y la planificación temporal seguida, es menester estimar los costes del proyecto en el supuesto caso de su implantación en una empresa o grupo de investigación. Esta estimación de costes está realizada en función de dos verticales, los gastos de personal y los gastos de ejecución.
+
+\subsubsection{Personal}
+
+Como hemos descrito en la sección \ref{personal} el personal radica en un solo investigador y la dedicación total atendiendo a la carga lectiva del proyecto final de máster, estaría en torno a los 3 meses a jornada completa. Teniendo en cuenta una estimación de unos 2000 euros brutos al mes tendríamos un total de 6000 euros en gastos de personal. 
+
+\subsubsection{Ejecución}
+
+En esta categoría encontramos los gastos de adquisición del material inventariable así como los gastos del material fungible. Como inventariable, tenemos los equipos descritos en la tabla \ref{hardware}, es decir, el equipo personal y el cluster de procesado cuyo coste en función del período de amortización (precio por uso dividido entre tiempo de amortización) puede verse en la tabla \ref{costeshardware}.
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{c c c c c} \toprule
+		Unidad & Precio & Periodo Amortización & Duración proyecto & Total \\ \midrule
+		Mac pro 2,6GHz & 1300 & 2 años & 1,5 meses & 81,25 \\
+		Intel Core i5 & & & \\
+		Cluster & 6000 & 6 & 1semana & 30\\ \bottomrule
+		\end{tabular}
+	\end{center}
+\caption{Detalle de costes inventariables.}
+\label{costeshardware}
+\end{table}
+
+Si atendemos a los costes fungibles, es decir, aquellos no inventariables como el material de oficina, podríamos estimarlos en unos 100 euros. 
+
+\subsubsection{Resumen de gastos}
+
+En la tabla \ref{resumen} podemos ver un total de los gastos del proyecto en función a lo descrito en esta sección. 
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{c c } \toprule
+		Gastos elegibles & Total  \\ \midrule
+		Personal & 6000  \\
+		Costes inventariables & 111,25  \\
+		Costes fungibles & 100 \\
+		\textbf{TOTAL} & 6211,25 \\ \bottomrule
+		\end{tabular}
+	\end{center}
+\caption{Resumen final de costes.}
+\label{resumen}
+\end{table}
+
+
+
+\pagebreak
+
+\clearpage
+%---------------------------------------------------
