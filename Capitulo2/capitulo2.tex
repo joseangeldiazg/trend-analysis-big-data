@@ -6,19 +6,20 @@
 
 \chapter{Planificación del proyecto}
 
-Una correcta planificación puede suponer el éxito o rotundo fracaso del proyecto en cualquier ámbito o disciplina aplicable. Si esta disciplina es a su vez la ingeniería en cualquiera de sus vertientes, la necesidad de una correcta planificación se acentúa aún más llegando a convertirse en una de las partes cruciales y más importantes del proyecto en sí. En ciencia de datos, esta parte no es menos importante, ya que una correcta planificación temporal que ayude al científico de datos, a distribuir su tiempo y esfuerzos entre las distintas partes que integran un proyecto de análisis de datos (integración, preprocesado, minería de datos ) puede ser de vital importancia de cara al triunfo o el fracaso del proyecto. 
-
-En este capítulo haremos un resumen de la planificación del proyecto versando este en los recursos software, humano y hardware empleados así como de la planificación temporal seguida por el mismo.
+Planificar un proyecto informático de manera correcta ser el factor crucial que determine el éxito, o en su defecto el fracaso  del mismo. La necesidad de una correcta planificación se acentúa más en proyectos enmarcados dentro de ámbito del Big Data. Estos proyectos son verdaderas obras de ingeniería teniendo en cuenta la necesidad de equipos, recursos humanos, software, variables (tiempo de computo, memoria, costes) que pueden implicar. Es por ello, que en este capítulo haremos un pequeño resumen de la planificación del proyecto, aportando una visión general de los recursos implicados. 
 
 \section{Gestión de recursos}
 
-En esta sección se hará un repaso por los recursos utilizados, siendo estos como vimos en la introducción del capítulo, tres categorías bien diferenciadas, recursos de personal, hardware y software los cuales son a su vez los tres pilares clave de un proyecto de ingeniería informática, a pesar de que en este caso que nos compete esté más enfocado al ámbito de investigación que al del diseño y desarrollo de un producto final, como sería el caso de un proyecto íntegro de ingeniería del software.
+En la primera sección de este capítulo, se hará un repaso por los principales recursos implicados pudiendo estos ser categorizados como personal, hardware y software, los cuales son a su vez los tres pilares clave de un proyecto de tecnologías de la información y la comunicación. 
 
 \subsection{Personal}
 \label{personal}
-El personal del proyecto radica exclusivamente en el autor José Ángel Díaz García, encargado de todas las partes del mismo, bajo la supervisión de los tutores. 
+El personal a cargo del proyecto, consta principalmente del autor José Ángel Díaz García, encargado de desarrollar todas las partes del mismo mediante la supervisión de los tutores. Por otro lado se ha contado con cierta asesoría y ayuda de miembros del equipo de investigación de bases de datos y sistemas de información inteligentes. 
 
 \subsection{Hardware}
+
+Para elaboración de memorias, notas, artículos así como para los procesos de datos menos complejos se ha utilizado el sistema descrito en la tabla \ref{ord_personal}. Por otro lado, todo el proceso basado en Big Data se ha llevado a cabo en el cluster de procesado de datos del grupo de investigación, este cluster está formado por 4 maquinas cuyas especificaciones pueden verse en la tabla ref{cluster}.
+
 \label{hardware}
 \begin{table}[H]
 	\begin{center}
@@ -32,9 +33,6 @@ El personal del proyecto radica exclusivamente en el autor José Ángel Díaz Garcí
 \caption{Especificaciones técnicas de la máquina personal usada.}
 \label{ord_personal}
 \end{table}
-
-
-Además de la máquina personal se ha utilizado un cluster de procesado de datos para el proceso de \textit{named entity recognition (NER)}, que es sin duda el más costoso computacionalmente hablando. Este cluster está formado por cuatro máquinas con las especificaciones técnicas que podemos ver en la tabla \ref{cluster}.
 
 
 \begin{table}[H]
@@ -57,18 +55,19 @@ El software utilizado es en su práctica totalidad software libre, siendo el rest
 
 
 \begin{itemize}
-\item \textbf{TeXShop}: procesador de textos basado en Latex usado para elaborar la documentación del presente proyecto. 
-\item \textbf{Scrapy}: Librería de Python que ofrece un \textit{framework} para la creación de \textit{web crawlers}.
+\item \textbf{TeXShop}: Procesador de textos basado en Latex usado para elaborar la documentación del presente proyecto. 
 \item \textbf{Twitter}: Red social de microblogging. 
 \item \textbf{MongoDB}: Base datos noSQL usada como almacén persistente de los datos.
 \item \textbf{RStudio}: Entorno de Desarrollo en R donde se ha realizado la mayor parte del proceso del proyecto. 
-\item \textbf{RSpark}: Librería para R que ofrece grandes ventajas a la hora de procesar grandes cantidades de datos bajo este lenguaje de programación. 
+\item \textbf{RSpark}: Pasarela entre R y Spark que permite usar funciones de Spark de manera nativa en R.
+ \item \textbf{Spark}:  Entorno  de computación en cluster usado para elaborar los procesos de Big Data más complejos. 
+\item \textbf{Git}: Sistema utilizado para el control de versiones. 
 \end{itemize}
 
 
 \section{Planificación temporal}
 
-La parte más importante de esta sección radica en la planificación temporal seguida en los meses de trabajo que el proyecto ha ocupado, siendo este elaborado continuamente etapa a etapa. 
+En este punto estudiaremos la planificación temporal seguida, así como los pequeños hitos que en cada una de las etapas se fueron consiguiendo y la duración de las mismas. 
 
 \begin{enumerate}
 \item \textbf{Obtención de información y estudio del tema}: La primera parte del proyecto consistió en la obtención de información acerca de la minería de opiniones y de las reglas de asociación así como de la aplicación de estas en el ámbito de la minería de redes sociales y más concretamente en Twitter. En este primer proceso de recopilación de información también se estudiaron temas más genéricos dentro del Big Data y la minería de datos con el fin de tener una visión global de las herramientas y técnicas a estudiar y usar en el problema. Esta etapa aunque ha sido continua, tuvo especial importancia desde mediados de noviembre de 2016 a finales de diciembre de ese mismo año. 
@@ -93,6 +92,25 @@ La parte más importante de esta sección radica en la planificación temporal segu
 
 \end{enumerate}
 
+\section{Requisitos del sistema final}
+
+Dado que el sistema final estará basada en una pequeña aplicación web en este punto veremos un pequeño análisis de requisitos del mismo. 
+
+	\subsection{Requisitos funcionales}
+		\begin{itemize}
+			\item \textbf{RF1}: El sistema permitirá al usuario final elegir sobre que términos desea obtener información. 
+			\item \textbf{RF2}: El sistema mostrará al usuario final de una manera amigable mediante tag clouds y tablas la información sobre los términos que cubran su necesidad de información.
+			\item \textbf{RF3}: El sistema permitirá refinar la búsqueda en función de diversos factores, como por ejemplo frecuencias. 
+			\item \textbf{RF4}: El sistema actualizará de manera automática los métodos de visualización en función de los posibles patrones de refinado introducidos por el usuario.
+			\item \textbf{RF5}: El sistema permitirá también al usuario ver los sentimientos asociados con términos, así como la polaridad de los tweets o las reglas de asociación asociadas a los tweets.
+		\end{itemize}
+	
+\subsection{Requisitos no funcionales}
+	\begin{itemize}
+		\item \textbf{RNF1}: El sistema debe trabajar con corpus de datos de varios GB sin problema. 
+		\item \textbf{RNF2}: El sistema debe poder crear los recursos de visualización para  un determinado termino en menos de 30 segundos. 
+		\item \textbf{RNF3}: El sistema debe poder operar de manera concurrente con hasta 10 usuarios. 
+	\end{itemize}
 
 \section{Costes}
 
@@ -112,33 +130,32 @@ En esta categoría encontramos los gastos de adquisición del material inventariab
 		Unidad & Precio & Periodo Amortización & Duración proyecto & Total \\ \midrule
 		Mac pro 2,6GHz & 1300 & 2 años & 1,5 meses & 81,25 \\
 		Intel Core i5 & & & \\
-		Cluster & 6000 & 6 & 1semana & 30\\ \bottomrule
+		Cluster & 6000 & 6 & 1mes & 120\\ \bottomrule
 		\end{tabular}
 	\end{center}
 \caption{Detalle de costes inventariables.}
 \label{costeshardware}
 \end{table}
 
-Si atendemos a los costes fungibles, es decir, aquellos no inventariables como el material de oficina, podríamos estimarlos en unos 100 euros. 
+Si atendemos a los costes fungibles, aquellos cuyo inventariado es menos relevante como por ejemplo el material de oficina podríamos estimarlo en unos 100 euros. 
 
 \subsubsection{Resumen de gastos}
 
-En la tabla \ref{resumen} podemos ver un total de los gastos del proyecto en función a lo descrito en esta sección. 
+En función a los cálculos estimados de costes realizados en esta sección, en la tabla  \ref{resumen} podemos ver el total de los gastos que podrían derivarse del proyecto. 
 
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}{c c } \toprule
 		Gastos elegibles & Total  \\ \midrule
 		Personal & 6000  \\
-		Costes inventariables & 111,25  \\
+		Costes inventariables & 201,25  \\
 		Costes fungibles & 100 \\
-		\textbf{TOTAL} & 6211,25 \\ \bottomrule
+		\textbf{TOTAL} & 6301,25 \\ \bottomrule
 		\end{tabular}
 	\end{center}
 \caption{Resumen final de costes.}
 \label{resumen}
 \end{table}
-
 
 
 \pagebreak
