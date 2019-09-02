@@ -44,20 +44,10 @@ Pese a que aún no hemos entrado en el estudio de las redes sociales ni de la \te
 
 La minería de opiniones, se centrará por tanto en obtener de textos que podrán provenir de diferentes fuentes, \textit{aspectos} de opinión, esto difiere  en cierta medida del proceso de \textit{análisis de sentimientos} \cite{diff} \cite{diff2} que se centra desde un enfoque mayormente supervisado en la clasificación de estas entidades textuales acorde a sentimientos u orientación. Analizando estos \textit{aspectos} y sus implicaciones sobre su \textit{entidad} relacionada, podremos obtener por tanto ventajas muy relevantes como por ejemplo saber qué opinan los consumidores de una marca en concreto, posicionar productos u obtener análisis de confianza entre otras muchas aplicaciones. 
 
-En el presente proyecto, obviaremos la rama supervisada, para centrarnos en el enfoque no supervisado dentro del campo de la \textit{minería de opiniones}, en el que no conocemos las clases o \textit{etiquetas} a priori, aunque sí que se incluye una cierta polarización básica sobre las opiniones, ya que es información relevante en el conjunto del proceso. Las técnicas de aprendizaje no supervisado que estudiaremos, son el \textit{clustering} y las reglas de asociación, ambas las trataremos en el siguiente punto.
+En el presente proyecto obviaremos las aplicaciones basadas en clasificación, para intentar indagar en el uso de las reglas de asociación en el ámbito de la obtención de patrones sobre textos u opiniones en Twitter. Dado que los datos provenientes de redes sociales carecen de clases o \textit{etiquetas} a priori, análisis descriptivos basados en reglas de asociación como el propuesto en este trabajo, pueden ser muy útiles para comprender los datos o extraer conocimiento de esas grandes factorías de datos que son las redes sociales. 
 
-\section{Técnicas de aprendizaje no supervisado}
-\label{tecnicas}
-Pese a la gran relación que existe entre las técnicas mencionadas anteriormente, estas difieren en factores tan dispares como su utilización, su aplicación o la información que aportan sobre un problema. El análisis de estos factores nos ayudará a elegir la técnica o el conjunto de técnicas adecuadas para cada problema concreto, es decir, podemos partir de enfoques diferentes que se apoyen y retroalimenten mutuamente. Cabe destacar y diferenciar las  técnicas más relevantes aplicadas a los problemas inherentes al estudio del análisis de tendencias, para así poder comprender mejor los siguientes capítulos y nuestro problema en cuestión. 
-
-\subsection{Clustering}
-\label{cluster}
-
-Las técnicas de clustering, se basan en la obtención de grupos o clases en función de un determinado conjunto de muestras o población, sin conocer a priori estas clases. Las técnicas de clustering, están enmarcadas dentro del aprendizaje no supervisado y basan la obtención de estos grupos y clases en dos factores como pueden ser la distancia o la similitud. De todos los problemas mencionados anteriormente estas técnicas son muy utilizadas en estudios relativos al marketing y estudios sociales, donde es relevante obtener agrupaciones. Un ejemplo concreto sería discernir entre los distintos tipos de cliente que compran regularmente en un supermercado, para poder ofrecer ofertas concretas en función del grupo de manera que estas sean personalizadas en función de cada cliente, permitiendo así que los beneficios se incrementen \cite{mkt}. 
-
-\subsection{Reglas de asociación}
+\section{Reglas de asociación}
 \label{reglas}
-
 La reglas de asociación dentro del ámbito de la informática no son muy distintas, al menos en el concepto general, de la búsqueda de relaciones en cualquier ámbito. Las reglas de asociación se enmarcan dentro del aprendizaje automático o minería de datos y no es algo nuevo sino que llevan siendo usadas y estudiadas desde mucho tiempo atrás, datando una de las primeras referencias a estas, del año 1993 \cite{agrawal}. Su utilidad es la de obtener conocimiento relevante de grandes bases de datos y se representan según la forma \textbf{X->Y} donde \textbf{X}, es un conjunto de ítems que representa el antecedente e \textbf{Y} un ítem o conjunto de ítems consecuente, por ende, podemos concluir que los ítems \textbf{consecuentes}  guardan una relación de co-ocurrencia con los ítems \textbf{antecedentes}. Esta relación puede ser obvia en algunos casos, pero en otros necesitará del uso de algoritmos de extracción de reglas de asociación que podrán desvelar relaciones no triviales y que puedan ser de mucho valor.  Podremos presentar por tanto a las reglas de asociación, como un método de extracción de relaciones aparentemente ocultas entre ítems o elementos dentro de bases de datos transaccionales, \textit{datawarehouses} u otros tipos de almacenes de datos de los que es interesante extraer información de ayuda en el proceso de toma de decisiones de las organizaciones. 
 
 \subsubsection{Medidas}
@@ -96,6 +86,9 @@ Si nos centramos en la manera de obtener las reglas, estas pueden abordarse desd
 \item Itemsets cerrados: Son aquellos itemsets frecuentes para los que ninguno de los superconjuntos inmediatos al itemset en cuestión, tienen un soporte igual. Con esta aproximación, tendremos soportes e itemsets frecuentes que podremos recuperar fácilmente, aunque al ser más numerosos que los maximales mantenerlos en memoria puede llegar a ser complicado.  
 \end{itemize}
 
+\subsection{Reglas Generalizadas}
+
+Las reglas de la asociación pueden ser estudiadas e interpretadas desde un punto de vista jerárquico \cite{srikant1997}, por ejemplo, en el problema de la cesta de la compra, la regla   \textit{\{Manzanas, Platanos\} $\rightarrow$ \{Yogurt\}}  podría ser reemplazada por \textit{\{Fruta\} $\rightarrow$ \{Yogurt\}}. Esto nos permite lograr un mayor grado de abstracción, lo que es interesante para obtener información relevante. Esta abstracción también nos permite resumir enormemente el conjunto de reglas, lo que resultará en un análisis más sencillo de los problemas en cuestión  sin perder información relevante por el camino. Las reglas de asociación generalizadas también son interesantes para los entornos Big Data, ya que el tamaño de los resultados obtenidos puede ser altamente resumido, mejorando consecuentemente el tiempo y los recursos de procesamiento. 
 
 \subsubsection{Aplicaciones}
 
@@ -191,7 +184,7 @@ Twitter abrió sus datos al mundo al hacer disponible una serie de APIs mediante 
 \item \textbf{REST API}: Obtiene los datos mediante HTTP, el formato puede venir en XML, HTML, o JSON, la limitación aquí viene definida por el número de resultados devueltos por página que no puede ser superior a 3200 tweets. 
 \end{itemize}
 
-Como podemos observar, estas limitaciones pueden suponer un gran problema a la hora de obtener una gran cantidad de datos para que nuestro trabajo tenga un cierto rigor y peso, por ello, en los puntos siguientes ahondaremos en el proceso seguido y tecnologías usadas para la obtención y almacenamiento de un gran volumen de datos a pesar de estas restricciones. 
+En los puntos siguientes ahondaremos en el proceso seguido y tecnologías usadas para la obtención y almacenamiento de un gran volumen de datos sobre los cuales realizar el proceso de experimentación. 
 \pagebreak
 \clearpage
 %---------------------------------------------------

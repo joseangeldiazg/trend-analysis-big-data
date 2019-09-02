@@ -10,13 +10,13 @@
 %---------------------------------------------------
 
 \documentclass[12pt,oneside]{book}
-
+\usepackage{graphicx}
+\usepackage{adjustbox}
 \input ./Configuracion/paquetes.tex   			% inclusión de paquetes empleados
 \input ./Configuracion/config.tex           % configuración de paquetes
 \input ./Configuracion/formato.tex	   % instrucciones de formato generales
 \input ./Configuracion/separaciones.tex   	% separación de palabras
 \input ./Configuracion/castellano.tex    		% renombrado de titulos automáticos a castellano
-
 \begin{document}
 
 \pagenumbering{alph}											% numeración especial para evitar duplicados
@@ -41,8 +41,8 @@
 
 \input ./Capitulo1/capitulo1.tex     				% inclusión de archivo del capitulo 1
 \input ./Capitulo2/capitulo2.tex     				% inclusión de archivo del capitulo 2
-%\input ./Capitulo3/capitulo3.tex     				% inclusión de archivo del capitulo 3
-%\input ./Capitulo4/capitulo4.tex     				% inclusión de archivo del capitulo 4
+\input ./Capitulo3/capitulo3.tex     				% inclusión de archivo del capitulo 3
+\input ./Capitulo4/capitulo4.tex     				% inclusión de archivo del capitulo 4
 %\input ./Capitulo5/capitulo5.tex     				% inclusión de archivo del capitulo 5
 %\input ./Capitulo6/capitulo6.tex     				% inclusión de archivo del capitulo 6
 %\input ./Capitulo7/capitulo7.tex     				% inclusión de archivo del capitulo 7Apriori
@@ -52,8 +52,10 @@
 \newpage
 \mbox{}
 \thispagestyle{empty}
-\bibliographystyle{apa}
+\bibliographystyle{acm}
 \bibliography{mybibfile}
+
+
 
 \end{document}       
 %---------------------------------------------------
