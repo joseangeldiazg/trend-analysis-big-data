@@ -1,10 +1,53 @@
 %?????????????????????????
-% Nombre: capitulo5.tex  
+% Nombre: capitulo6.tex  
 % 
-% Texto del capitulo 5
+% Texto del capitulo 6
 %---------------------------------------------------
 
-\chapter{Arquitectura del sistema}
+\chapter{Metodología}
+\label{minería}
+En este capítulo veremos la metodología seguida para la creación del sistema. Entraremos en detalle en las tecnologías y técnicas usadas en el modulo de obtención de datos  y del preprocesado, dejando la experimentación y los detalles del proceso de minería de datos con reglas de asociación para el capítulo \ref{mineria}. Para una mejor comprensión se ha plasmado el flujo de información en la figura \ref{flujo}.
+
+ \begin{figure}
+	\includegraphics[width=10cm]{./Capitulo5/imagenes/flujo.png}
+	\centering
+	\caption{Arquitectura del sistema.}
+	\label{flujo}
+\end{figure}
+
+\section{Dataset}
+
+En esta sección veremos, el proceso de obtención de los datos así como la persistencia de los mismos y una breve explicación de la composición del dataset que será utilizado en el proceso experimental. 
+
+\subsection{Obtención de datos}
+Los datos han sido obtenidos mediante la API de streaming de Twitter. Esta API, permite obtener datos sobre un determinado hashtag, usuario o tópico indefinidamente. Para obtener los datos, se ha llevado a cabo un script en python que realiza las siguientes tareas:
+\begin{enumerate}
+	\item Identifica la app con las credenciales de twitter. 
+	\item Obtiene parámetros de entrada, en nuestro caso, queremos tweets relativos a las elecciones del 28A, nuestro parámetro de búsqueda será  28A y 28Abril.
+	\item Obtiene datos y los guarda en la base de datos de manera indefinida hasta que no se pare el script. 
+\end{enumerate}
+
+La API de streaming de Twitter es muy útil para analizar datos en tiempo real, pero en nuestro caso también es útil para almacenar datos a lo largo del tiempo de manera que se pueda obtener un dataset de gran tamaño. Dado que la obtención de datos se realizo durante el mes de abril, mes en el que continuamente se generaban tweets relativos al 28A, se consideró obtener tweets relativos a este hashtag de manera que la experimentación y los patrones, podrían ser contrastados con eventos de la vida social y política de España durante el mes de abril de 2019. 
+
+\subsection{Persistencia}
+
+La persistencia de los datos, se ha llevado a cabo con una de las bases de datos más usadas dentro del paradigma Big Data, MongoDB. Esta base de datos, es noSQL\footnote{Not Only SQL}. Dado que en nuestro sistema no necesitamos una gran consistencia, sino que buscamos la versatilidad y facilidad de conexión con las APIs de Python, hemos considerado MongoDB como la mejor base de datos para nuestro proceso. 
+
+\subsection{Especificaciones de los datos}
+\label{data}
+El conjunto final de datos, se compone de 1517476 registros (tweets), con un lenguaje de 140727 palabras o símbolos distintos. El tamaño máximo del texto de un tweet es de 280 caracteres, y aunque la obtención de datos incluye información relativa al usuario que emite el tweet, en este análisis solo hemos mantenido el texto pues los demás datos pueden ser útiles en trabajos futuros pero no en este. 
+
+\section{Preprocesado}
+
+El preprocesado es una de las tareas más relevantes e importantes dentro del flujo de un proyecto de ciencia de datos. Podríamos definirlo como el conjunto de técnicas enmarcadas en ciencia de datos cuya finalidad es obtener datos de mayor calidad de forma que los algoritmos de minería de datos, bien sean descriptivos o predictivos, puedan aplicarse de una manera mas eficiente y con mejores resultados. 
+
+En minería de textos, el preprocesado de datos es ligeramente diferente a otros problemas de minería de datos, dada la naturaleza de los textos como datos no estructurados. En esta sección, veremos las técnicas de preprocesado de textos llevado a cabo sobre el dataset descrito en el punto \ref{data}.
+
+
+\subsection{Tokenización y limpieza}
+
+\subsection{Big Data}
+Aunque el proceso de limpieza en el cluster de computación no es privativo en cuanto al tiempo de ejecución, se ha trasladado al paradigma BigData mediante mapPartitions de PySpark, de manera que el sistema está preparado para aumentar el número de tweets aún más si cabe y obteniendo un mejor rendimiento. 
 
 \pagebreak
 \clearpage

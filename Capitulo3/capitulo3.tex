@@ -7,7 +7,7 @@
 \chapter{Marco de trabajo}
 \label{marco}
 
-Antes de comenzar a abordar el estado del arte del análisis de tendencias o \textit{minería de opiniones}, y más concretamente su aplicación en el ámbito de la web 2.0, es necesario introducir algunos conceptos teóricos que nos permitan comprender mejor los conceptos de los trabajos de los que discutiremos en el capítulo \ref{arte}. Sobre ello, hablaremos en este capítulo.
+Antes de comenzar a estudiar el estado del arte del análisis de tendencias o minería de medios sociales como Twitter es necesario presentar los conceptos teóricos relacionados y que permitirán comprender de una mejor manera los conceptos de los trabajos que serán discutidos en el capítulo \ref{estado}.
 
 \section{Minería de medios sociales digitales}
 
@@ -56,17 +56,24 @@ La forma clásica de medir la bondad o ajuste de las reglas de asociación a un de
 
 \begin{itemize}
 
-	\item Soporte: El soporte de un ítem se representa como \textit{supp (X)}, y representa la fracción de las transacciones que contienen al ítem X entre el total de transacciones de la base de datos (D). El \textit{supp(X $\rightarrow$ Y)} sería por consiguiente el total de transacciones que contiene tanto al ítem X como al ítem Y, y quedaría definido con la siguiente ecuación: 
+	\item Soporte: El soporte de un ítem se representa como \textit{supp (X)}, y representa la fracción de las transacciones que contienen al ítem X entre el total de transacciones de la base de datos (D). Su fórmula sería:
+	
+	\begin{equation}
+	supp(X) = \frac{|{t\in D : X\subseteq t}|}{|D|}
+	\label{eq1}
+	\end{equation}
+	
+	\item El soporte de una regla de asociacion serñia representado como \textit{supp(X $\rightarrow$ Y)} y por consiguiente correspondería al total de transacciones que contiene tanto al ítem X como al ítem Y. Podríamos definirlo matemáticamente con la siguiente ecuación: 
 	
 	\begin{equation}
 	supp(X \rightarrow Y) = {supp(X \cup Y)}
-	\label{eq1}
+	\label{eq2}
 	\end{equation}
 
 	\item Confianza: Se representa como \textit{conf (X$\rightarrow$Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, de entre aquellas transacciones donde aparece el ítem X. Su ecuación sería:
 	
 	\begin{equation}
-	conf(X \rightarrow Y) = \frac{supp(X \rightarrow Y)}{supp(X)}
+		conf(X \rightarrow Y) = \frac{supp(X \rightarrow Y)}{supp(X)}
 	\end{equation}
 	
 	\item Lift: El \textit{lift}, es una medida útil para evaluar la independencia entre los ítems de una determinada regla  de asociación. En una regla del tipo \textit{lift (X$\rightarrow$Y)}, esta medida representa el grado en que X tiende a ser frecuente cuando A está presente en la regla, o viceversa. El lift, quedará definido matemáticamente de la siguiente manera:
@@ -75,7 +82,7 @@ La forma clásica de medir la bondad o ajuste de las reglas de asociación a un de
 	\end{equation}
 \end{itemize}
 
-Pese a que estas medidas son las más comunes y extendidas, hay innumerables propuestas de medidas complementarias en la literatura, tales como la \textbf{convicción, factor de certeza, diferencia absoluta de confianza} entre otras muchas. 
+Pese a que estas medidas son las más comunes y extendidas, hay muchas más propuestas de medidas complementarias en la literatura, tales como la \textbf{convicción, factor de certeza, diferencia absoluta de confianza} entre otras muchas. 
 
 \subsubsection{Obtención de reglas}
 
@@ -113,10 +120,39 @@ En este punto, entraremos a hablar de las conocidas \textbf{V`s del Big Data}, a
 \item \textbf{Variabilidad}: Los datos pueden cambiar de estructura o interpretación. 
 \item \textbf{Valor}: En última instancia, sin valor, no hay Big Data y es que estos datos una vez procesados deben aportar conocimiento y valor a la empresa y organización. 
 \end{enumerate}
+
+\subsection{Spark}
  
+ Una de las tecnologías más extendidas dentro del Big Data es Apache Spark.  Este es un framework opensource de procesamiento distribuido cuya funcionalidad se centra en la orquestación de trabajos en una red de computación o cluster. Spark es un framework muy potente que permite al usuario realizar prácticamente todas las tareas de un pipeline de análisis de datos habitual de manera distribuida y por supuesto, mucho más eficiente que si fuera secuencial. En cuanto a versatilidad y posibilidad de adaptación también tiene grandes ventajas, pues ofrece APIs para trabajar en distribuido desde los lenguajes más usados en análisis de datos como R, Python, Sacala o Java entre otros. En esta linea de versatilidad se encuentran también los datos con los que este puede trabajar yendo estos de más a menos estructurados sin causar problemas mayores al procesado. 
+ 
+La arquitectura de Spark, quedaría definida por un nodo maestro, desde el cual se ejecutan los programas de usuario, un nodo que se encarga de distribuir los datos y una serie de nodos denominados \textit{workers}, que serían los encargados de ejecutar su parte del trabajo enviando de nuevo al nodo de orquestación los resultados, que serían unidos y ofrecidos al nodo maestro como una misma entidad. Podemos ver una esquema de esta arquitectura en la figura \ref{arquitecturaspark}. 
+ 
+ \begin{figure}
+ 	\includegraphics[width=8cm]{./Capitulo3/imagenes/spark.png}
+ 	\centering
+ 	\caption{Arquitectura spark.}
+ 	\label{arquitecturaspark}
+ \end{figure}
+ 
+ 
+ \subsection{Spark vs Hadoop}
+ 
+El mundo del Big Data, como en todos los ámbitos de las TIC no recae sobre una sola tecnología sino que hay varias donde elegir, y que a menudo, son competencia entre si. Este es el caso de Spark y Hadoop. Hadoop fue el primer framework de  Big Data, está basado en la tecnología Map-Reduce (figura \ref{map-reduce}) y ha sido y es ampliamente utilizado para problemas de Big Data. 
+
+  \begin{figure}
+	\includegraphics[width=8cm]{./Capitulo3/imagenes/map.png}
+	\centering
+	\caption{Arquitectura Map Reduce.}
+	\label{map-reduce}
+\end{figure}
+
+Una de las características principales de Hadoop recae en el hdfs, un sistema de archivos distribuido  que permite trabajar  con una gran cantidad de datos así como escalar de manera sencilla en el caso de necesitar más recursos o mas capacidad de procesado. El hdfs, también aporta redundancia y tolerancia a fallos, pero por contra, al tener los datos en disco los procesos son mas lentos en comparación a a Spark. 
+ 
+En cuanto a la versatilidad y usabilidad, Spark también sería mas recomendable dado que como hemos mencionado anteriormente tiene APIs muy sencillas para los lenguajes más usados. Estas ventajas, han hecho que recientemente el uso de Spark se haya visto incrementado en comparacion con Hadoop.  
+
 \subsection{Aplicaciones} 
  
- Las aplicaciones del BigData, dado su interés, están presentes en numerosas áreas, algunas de las cuales pueden ser las siguientes:
+El Big Data está presente en muchas áreas socio-económicas actuales, algunas de las cuales pueden ser:
  
  \begin{itemize}
  \item{Negocios y marketing}: Análisis de comportamientos en el comprador, detección de comunidades. 
