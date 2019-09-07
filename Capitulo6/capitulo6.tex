@@ -6,16 +6,72 @@
 
 \chapter{Minería de datos}
 \label{mineria}
+En este capítulo abordaremos los objetivos finales del proyecto, de aplicación de técnicas de minería de datos, obtención de patrones y puesta en valor del sistema final mediante técnicas de visualización. También, se abordará la experimentación y se analizara un caso de uso relativo a las elecciones generales  del 28 de abril de 2019.
+
+\section{Transacciones textuales}
+Como vimos en el capitulo \ref{estado} las reglas de asociación pueden aplicarse sobre texto para obtener relaciones de co-ocurrencia entre ítems (palabras) dentro de una base de datos textual, esto nos permite resumir la información y obtener patrones interesantes que relacionan una palabra con personas, marcas... en nuestro caso políticos y partidos políticos. 
+
+El primer paso para poder aplicar algoritmos de extracción de reglas sobre texto, pasa por crear transacciones de texto. Estas fueron definidas en el paper \cite{baus}, y teniendo una colección de documentos cada uno de estos documentos sería una transacción, y cada una de las palabras presentes en el vocabulario constituirían un ítem, que podría aparecer o no en cada una de las transacciones, la representación mas eficiente, al menos en tamaño, pasaría por usar booleanos dado que tenemos matrices muy dispersas y de gran tamaño. 
 
 \section{Reglas de asociación en Big Data}
+
+\subsection{Algoritmos usados}
+
+En esta sección veremos una introducción teórica  a los algoritmos empleados en el proceso experimental. Dado que el objetivo del trabajo no está ligado a la mejora o estudio matemático de los algoritmos no entraremos en detalle en los mismos sino que se mencionará la idea subyacente de su funcionamiento para facilitar la comprensión de los puntos siguientes.
+
+\subsubsection{Apriori}
+
+El algoritmo \textbf{Apriori}, fue propuesto por Agrawal y Srikant en 1994 \cite{apriori} y desde entonces sigue siendo el algoritmo más extendido para la obtención de itemsets frecuentes, con los que construiremos en una segunda etapa las reglas de asociación. Se basa en el principio de que si un itemset es frecuente, entonces todos sus subconjuntos también lo son por lo que al encontrar uno de estos, podremos podar el árbol de búsqueda evitando hacer comprobaciones y aumentando la eficiencia. Para obtener los itemsets frecuentes, el algoritmo en base a un valor mínimo de soporte fijado por el experto en la materia, generará todas las posibles combinaciones de itemsets y comprobará si son o no frecuentes. En cada iteración, se generan todos los posibles itemsets distintos que se pueden formar combinando los de la anterior, por lo que los itemsets irán creciendo de tamaño.
+
+Apriori tiene bastantes factores o limitaciones relacionados con la eficiencia del algoritmo y que pueden afectar en gran medida al proceso de minería de datos que en algunos problemas específicos podría incluso resultar prohibitivo por tiempos o espacio. Algunas de estas limitaciones serían:
+
+\begin{enumerate}
+	\item Soporte: Umbrales demasiado bajos conllevarán a una explosión del número de itemsets frecuentes lo que está directamente relacionado con una mayor necesidad de memoria y tiempo. 
+	\item Número de ítems distintos: Esta limitación, está ligada a la necesidad del algoritmo apriori de almacenar el soporte de cada uno de éstos, lo que puede conllevar problemas de memoria. 
+	\item Tamaño de la base de datos: Este punto está ligado, al anterior, pero en lugar de tener en cuenta los ítems individuales se tienen en cuenta el número de transacciones. Apriori al ser exhaustivo realiza múltiples pasadas por toda la base de datos por lo que el tiempo de ejecución puede ser muy elevado o incluso no llegar a acabar en varios días o semanas. 
+	\item Longitud de las transacciones: Ligado al problema anterior, si las transacciones a su vez están formadas por muchos ítems, almacenar esto en memoria puede llegar a ser privativo e incluso imposible. 
+\end{enumerate}
+
+Estas limitaciones, nos han llevado a el estudio de otro método menos sensible a los requisitos temporales o de espacio, de cara a las posibles ampliaciones del problema a mayores cantidades de datos aún. Este método es el algoritmo FP-Growth y lo estudiaremos en el siguiente punto.
+
+\subsubsection{FP-Growth}
+
+El algoritmo \textbf{FP-Growth} \cite{fpg} fue propuesto en el año 2000, como una solución a los problemas de memoria generados por los métodos típicos como el Apriori, visto anteriormente. Es un algoritmo muy eficiente y ampliamente extendido en problemas y soluciones que podrían ser enmarcados bajo el nombre de Big Data. 
+
+\textbf{FP-Growth}, crea un modelo comprimido de la base datos original utilizando una estructura de datos que denomina como \textbf{\textit{FP-tree}} que está formada por dos elementos esenciales:
+
+\begin{itemize}
+	\item Grafo de transacciones: Gracias a este grafo la base de datos completa puede abreviarse. En cada nodo, se describe un itemset y su soporte que se calcula siguiendo el camino que va desde la raíz hasta el nodo en cuestión.
+	\item Tabla cabecera: Es una tabla de listas de ítems. Es decir, para cada ítem, se crea una lista que enlaza nodos del grafo donde aparece. 
+\end{itemize}
+
+Una vez se construye el árbol, utilizando un enfoque recursivo basado en divide y vencerás, se extraen los itemsets frecuentes. Para ello primero se obtienen el soporte de cada uno de los ítems que aparecen en la tabla de cabecera, tras lo cual, para cada uno de los ítems que superan el soporte mínimo se realizan los siguientes pasos:
+
+\begin{enumerate}
+	\item Se extrae la sección del árbol donde aparece el ítem reajustando los valores de soporte de los ítems que aparecen en esa sección.
+	\item Considerando esa sección extraída, se crea un nuevo \textbf{\textit{FP-tree}}.
+	\item Se extraen los itemsets que superen el mínimo soporte de este último \textbf{\textit{FP-tree}} creado. 
+\end{enumerate}
+
+En función a lo estudiado, es obvio ver que la memoria que ocupa es mucho menor que la generada por Apriori, así como al generar itemsets por medio del principio divide y vencerás, \textbf{FP-Growth} se presta a ser usado en entornos distribuidos como por ejemplo el entorno de Big Data, Apache Spark, aumentando sus prestaciones de manera notable. Explotando este beneficio hemos hecho uso del algoritmo FP-Growth presente en el paquete RSpark, el cual  viene optimizado para una ejecución distribuida en entornos de Big Data. 
+
 
 \section{Big Data vs secuencial}
 
 \section{Caso de uso: 28A}
+El pasado 28 de abril de 2019 tuvieron lugar las elecciones al generales  para elegir el Gobierno de España. El PSOE \footnote{Partido Socialista Obrero Epañol} ganó las elecciones, que además pasarán a la historia como una de las elecciones generales donde la participación ciudadana fue mas alta, situándose esta en el 71,76\%. Esta alta participación, junto con el `clima' político de la época en el país, hacen de un análisis de patrones sobre las conversaciones generadas sobre el 28 de abril en Twitter, una aplicación muy interesante. Con el que intentaremos dar respuestas a preguntas como: 
 
+\begin{itemize}
+	\item ¿Hay relación entre patrones que asocian términos negativos o positivos con determinados políticos y los resultados posteriores?
+	\item ¿Qué términos se asocian con cada partido? ¿Tienen estos términos relación con las políticas de los mismos?
+	\item ¿Qué preocupaba a la sociedad española durante los días previos a las elecciones?
+\end{itemize}
+
+En las siguientes secciones, veremos patrones interesantes hallados así como métodos de visualización que permitan una mejor interpretación de los reglas obtenidas, con las que trataremos de dar respuesta a estas preguntas. 
 \subsection{Patrones interesantes}
 
 \subsection{Visualización}
+En esta última sección del capítulo de minería de datos, abordaremos el último de los objetivos visto en la sección \ref{objetivos}. Trataremos de poner en valor el sistema con técnicas de visualización que permitan de una manera intuitiva para el usuario final obtener información sobre el gran conjunto de datos de entrada. 
 
 \pagebreak
 \clearpage

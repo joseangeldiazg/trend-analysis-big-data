@@ -5,7 +5,7 @@
 %---------------------------------------------------
 
 \chapter{Metodología}
-\label{minería}
+\label{meto}
 En este capítulo veremos la metodología seguida para la creación del sistema. Entraremos en detalle en las tecnologías y técnicas usadas en el modulo de obtención de datos  y del preprocesado, dejando la experimentación y los detalles del proceso de minería de datos con reglas de asociación para el capítulo \ref{mineria}. Para una mejor comprensión se ha plasmado el flujo de información en la figura \ref{flujo}.
 
  \begin{figure}
@@ -43,11 +43,26 @@ El preprocesado es una de las tareas más relevantes e importantes dentro del flu
 
 En minería de textos, el preprocesado de datos es ligeramente diferente a otros problemas de minería de datos, dada la naturaleza de los textos como datos no estructurados. En esta sección, veremos las técnicas de preprocesado de textos llevado a cabo sobre el dataset descrito en el punto \ref{data}.
 
-
 \subsection{Tokenización y limpieza}
 
+En este punto, estudiaremos las técnicas llevadas a cabo para limpiar los datos provenientes de Twitter. Para conseguir estas tareas en python, el primer paso es crear dataframes de Pandas, sobre los cuales podremos ir aplicando técnica de minería de textos mediante applys y herramientas de procesamiento de lenguaje natural. Las técnicas usadas, han sido:
+
+\begin{enumerate}
+	\item El primer paso pasa por eliminar los enlaces. Para ello, creamos una expresión regular que elimina este contenido, teniendo en cuenta que los enlaces no son necesarios en el proceso de extracción de reglas de asociación, pues para nuestras transacciones textuales solo necesitamos los ítems o palabras mencionados en un tweet. 
+	\item Tras esto hemos tokenizado cada palabra haciendo uso de un tokenizador especial para Twitter implementado dentro del paquete nltk. Este paquete tokenizador mantiene caracteres especiales como los emoticonos y procesa de una manera distinta los signos de puntuación. Un ejemplo de uso podría ser, el tweet `\textit{Esto es un ejemplo!!!! Con emoticonos :) y símbolos)}' seria tokenizado como, `\textit{Esto, es, un, ejemplo, !!!, Con emoticonos, :), y, símbolos, )}'. Esto es así debido a que se mantienen símbolos para permitir analizar un tipo de lenguaje coloquial, algo muy útil para dominios como el de Twitter.
+	\item El tercer paso es eliminar las palabras vacías en Español. 
+	\item En nuestro análisis no nos interesan los signos de puntuación como \textit{!}, pero si que nos interesa mantener otros como  \textit{:)}, por ello, una solución es eliminar aquellos ítems de tamaño inferior a 2 símbolos, con lo que mantendremos emoticonos y eliminaremos signos de puntuación y posible tokens erróneos. 
+	\item Se ha creado una lista especial de palabras vacías del dominio de Twitter, tales como \textit{lol, RT, via}. Tras su creación, se han eliminado del dominio del problema pues son palabras que meten ruido en el dataset y no aportan nada.
+	\item El sexto paso para la limpieza de los datos ha sido el paso de todos los tokens a utf-8, ya que había caracteres especiales que no sirven en nuestro procesado. 
+	\item El siguiente paso, se ha basado en el paso a minúsculas de todos los tokens.
+	\item Tras el paso a minúsculas, se ha utilizado un proceso de corrección del lenguaje para evitar palabras mal escritas o con faltas de ortografía. Para ello para cada token, se ha entrenado un \textit{spellcheker} y en caso de que el resultado sea una palabra errónea con un valor de confianza máximo, se cambia por la correcta. 
+	\item Por último se han eliminado los tokens compuestos íntegramente por números.
+\end{enumerate}	
+
+Es necesario mencionar antes de finalizar esta sección que dos de las labores, que tradicionalmente se realizan en procesado de Tweets, como son la eliminación de usuarios y hashtags, en nuestro caso no se han llevado a cabo pues queremos ver que ítems se relacionan con que hashtags y con que personajes y partidos políticos, por lo que para nuestro análisis ítems como @sanchezcastejon o @vox\_es entre otros son muy interesantes. 
+
 \subsection{Big Data}
-Aunque el proceso de limpieza en el cluster de computación no es privativo en cuanto al tiempo de ejecución, se ha trasladado al paradigma BigData mediante mapPartitions de PySpark, de manera que el sistema está preparado para aumentar el número de tweets aún más si cabe y obteniendo un mejor rendimiento. 
+Aunque el proceso de limpieza en el cluster de computación no es privativo en cuanto al tiempo de ejecución, se ha trasladado al paradigma BigData. Para realizar esta labor, se ha usado la API de Spark para Python, pyspark. Esta API pone a nuestro servicio múltiples funciones que permiten distribuir el trabajo de una manera sencilla, en este caso dado que tenemos un conjunto de independiente de datos muy grande sobre el que realizar un flujo de procesos, la mejor opción para distribuir los datos ha sido mediante mapPartitions, de manera que el sistema está preparado para aumentar el número de tweets aún más si cabe y obteniendo un mejor rendimiento. En el siguiente capitulo, continuaremos ahondando en el proceso de distribución de los datos y así como un estudio comparativo de la obtención de reglas en secuencial y mediante Spark. 
 
 \pagebreak
 \clearpage
