@@ -13,7 +13,7 @@ Antes de comenzar a estudiar el estado del arte del análisis de tendencias o min
 
 La reciente incursión de las redes sociales digitales en nuestro mundo han cambiado el paradigma de trabajo, económico y social de la sociedad. Dada su importancia, diversos sectores y ámbitos de estudio han puesto el punto de mira en el estudio de estos nuevos paradigmas sociales. La minería de datos es uno de los campos que estudia los medios sociales digitales originando una nueva vertiente de la misma denominada como  \textbf{minería de medios sociales}. 
 
-La \textbf{minería de medios sociales}, acorde a  P. Gundecha \cite{liu1}, comprende el proceso de representar, analizar y extraer de datos provenientes de medios sociales patrones con significado y valo, de manera que puedan utilizarse en el proceso de toma de decisiones de una pequeña o gran compañia. La minería de medios sociales es por tanto un campo multidisciplinar y su alcance puede ser dividido en los siguientes ámbitos de aplicación:
+La \textbf{minería de medios sociales}, acorde a  P. Gundecha \cite{liu1}, comprende el proceso de representar, analizar y extraer de datos provenientes de medios sociales patrones con significado y valor, de manera que puedan utilizarse en el proceso de toma de decisiones de una pequeña o gran compañía. La minería de medios sociales es por tanto un campo multidisciplinar y su alcance puede ser dividido en los siguientes ámbitos de aplicación:
 
 \begin{itemize}
 	\item \textbf{Análisis de comunidades}: Por medio de teoría de grafos, se obtienen comunidades dentro de nuestra población objetivo. Estos pueden ser usuarios con similares intereses, gustos o preferencias.
@@ -27,7 +27,7 @@ La \textbf{minería de medios sociales}, acorde a  P. Gundecha \cite{liu1}, compr
 
 \section{Minería de opiniones}
 \label{mineriaopiniones}
-La minería de opiniones, conocida en el ámbito internacional como \textit{opinion mining}, es una vertiente al alza dentro de la famosa minería de textos y tiene su raíz por tanto en las técnicas de procesamiento de lenguaje natural o en inglés, NLP. Si analizamos la web o las publicaciones en redes sociales, encontraremos cientos de miles de \textit{reviews} o posts de personas acerca de un producto o marca, el potencial de analizar la finalidad de esta opinión, ver si es una critica constructiva, si se promueve el producto o si simplemente lo crítica puede suponer una gran ventaja competitiva para las empresas y marcas, por ello, son más las que cada vez usan estas técnicas en sus procesos de vigilancia tecnológica, obtención del \textit{feedback} del consumidor o simplemente para la creación de datalakes de opiniones que puedan ser analizadas, por ejemplo para afinar el futuro lanzamiento de un nuevo producto.
+La minería de opiniones, conocida en el ámbito internacional como \textit{opinion mining}, es una vertiente al alza dentro de la famosa minería de textos y tiene su raíz por tanto en las técnicas de procesamiento de lenguaje natural o en inglés, NLP. Si analizamos la web o las publicaciones en redes sociales, encontraremos cientos de miles de \textit{reviews} o posts de personas acerca de un producto o marca, el potencial de analizar la finalidad de esta opinión, ver si es una critica constructiva, si se promueve el producto o si simplemente lo crítica puede suponer una gran ventaja competitiva para las empresas y marcas, por ello, son más las que cada vez usan estas técnicas en sus procesos de vigilancia tecnológica, obtención del \textit{feedback} del consumidor o simplemente para la creación de \textit{data lakes} de opiniones que puedan ser analizadas, por ejemplo para afinar el futuro lanzamiento de un nuevo producto.
 
 Como todas las especializaciones o vertientes dentro del área de la minería de textos, en \textit{opinion mining} tratamos por tanto de obtener información relevante y de valor a partir de textos, como los que hemos mencionado anteriormente, blogs, tweets o diversas redes sociales, de ahí que sea estudiada dentro del proceso de \textit{social media mining} descrito anteriormente, ya que podríamos decir que una técnica complementa a la otra. Pero, ¿qué es una opinión? Acorde a la definición dada por Liu en \cite{liu}, una opinión es una quíntupla compuesta de los siguientes elementos:
 
@@ -48,7 +48,7 @@ En el presente proyecto obviaremos las aplicaciones basadas en clasificación, pa
 
 \section{Reglas de asociación}
 \label{reglas}
-La reglas de asociación dentro del ámbito de la informática no son muy distintas, al menos en el concepto general, de la búsqueda de relaciones en cualquier ámbito. Las reglas de asociación se enmarcan dentro del aprendizaje automático o minería de datos y no es algo nuevo sino que llevan siendo usadas y estudiadas desde mucho tiempo atrás, datando una de las primeras referencias a estas, del año 1993 \cite{agrawal}. Su utilidad es la de obtener conocimiento relevante de grandes bases de datos y se representan según la forma \textbf{X->Y} donde \textbf{X}, es un conjunto de ítems que representa el antecedente e \textbf{Y} un ítem o conjunto de ítems consecuente, por ende, podemos concluir que los ítems \textbf{consecuentes}  guardan una relación de co-ocurrencia con los ítems \textbf{antecedentes}. Esta relación puede ser obvia en algunos casos, pero en otros necesitará del uso de algoritmos de extracción de reglas de asociación que podrán desvelar relaciones no triviales y que puedan ser de mucho valor.  Podremos presentar por tanto a las reglas de asociación, como un método de extracción de relaciones aparentemente ocultas entre ítems o elementos dentro de bases de datos transaccionales, \textit{datawarehouses} u otros tipos de almacenes de datos de los que es interesante extraer información de ayuda en el proceso de toma de decisiones de las organizaciones. 
+Las reglas de asociación dentro del ámbito de la informática no son muy distintas, al menos en el concepto general, de la búsqueda de relaciones en cualquier ámbito. Las reglas de asociación se enmarcan dentro del aprendizaje automático o minería de datos y no es algo nuevo sino que llevan siendo usadas y estudiadas desde mucho tiempo atrás, datando una de las primeras referencias a estas, del año 1993 \cite{agrawal}. Su utilidad es la de obtener conocimiento relevante de grandes bases de datos y se representan según la forma \textbf{X =>Y}  \textbf{Y} donde \textbf{X}, es un conjunto de ítems que representa el antecedente e \textbf{Y} un ítem o conjunto de ítems consecuente, por ende, podemos concluir que los ítems \textbf{consecuentes}  guardan una relación de co-ocurrencia con los ítems \textbf{antecedentes}. Esta relación puede ser obvia en algunos casos, pero en otros necesitará del uso de algoritmos de extracción de reglas de asociación que podrán desvelar relaciones no triviales y que puedan ser de mucho valor.  Podremos presentar por tanto a las reglas de asociación, como un método de extracción de relaciones aparentemente ocultas entre ítems o elementos dentro de bases de datos transaccionales, \textit{datawarehouses} u otros tipos de almacenes de datos de los que es interesante extraer información de ayuda en el proceso de toma de decisiones de las organizaciones. 
 
 \subsubsection{Medidas}
 
@@ -56,21 +56,21 @@ La forma clásica de medir la bondad o ajuste de las reglas de asociación a un de
 
 \begin{itemize}
 
-	\item Soporte: El soporte de un ítem se representa como \textit{supp (X)}, y representa la fracción de las transacciones que contienen al ítem X entre el total de transacciones de la base de datos (D). Su fórmula sería:
+	\item Soporte: El soporte de un ítem se representa como \textit{supp (X)}, y representa la fracción de las transacciones que contienen al ítem X entre el total de transacciones (t) de la base de datos (D). Su fórmula sería:
 	
 	\begin{equation}
 	supp(X) = \frac{|{t\in D : X\subseteq t}|}{|D|}
 	\label{eq1}
 	\end{equation}
 	
-	\item El soporte de una regla de asociacion serñia representado como \textit{supp(X $\rightarrow$ Y)} y por consiguiente correspondería al total de transacciones que contiene tanto al ítem X como al ítem Y. Podríamos definirlo matemáticamente con la siguiente ecuación: 
+	\item El soporte de una regla de asociación estaría representado como \textit{supp(X $\rightarrow$ Y)} y por consiguiente correspondería al total de transacciones que contiene tanto al ítem X como al ítem Y. Podríamos definirlo matemáticamente como sigue: 
 	
 	\begin{equation}
 	supp(X \rightarrow Y) = {supp(X \cup Y)}
 	\label{eq2}
 	\end{equation}
 
-	\item Confianza: Se representa como \textit{conf (X$\rightarrow$Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, de entre aquellas transacciones donde aparece el ítem X. Su ecuación sería:
+	\item Confianza: Se representa como \textit{conf (X$\rightarrow$Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, de entre aquellas transacciones donde aparece el ítem X. Su definición sería:
 	
 	\begin{equation}
 		conf(X \rightarrow Y) = \frac{supp(X \rightarrow Y)}{supp(X)}
@@ -95,7 +95,7 @@ Si nos centramos en la manera de obtener las reglas, estas pueden abordarse desd
 
 \subsection{Reglas Generalizadas}
 
-Las reglas de la asociación pueden ser estudiadas e interpretadas desde un punto de vista jerárquico \cite{srikant1997}, por ejemplo, en el problema de la cesta de la compra, la regla   \textit{\{Manzanas, Platanos\} $\rightarrow$ \{Yogurt\}}  podría ser reemplazada por \textit{\{Fruta\} $\rightarrow$ \{Yogurt\}}. Esto nos permite lograr un mayor grado de abstracción, lo que es interesante para obtener información relevante. Esta abstracción también nos permite resumir enormemente el conjunto de reglas, lo que resultará en un análisis más sencillo de los problemas en cuestión  sin perder información relevante por el camino. Las reglas de asociación generalizadas también son interesantes para los entornos Big Data, ya que el tamaño de los resultados obtenidos puede ser altamente resumido, mejorando consecuentemente el tiempo y los recursos de procesamiento. 
+Las reglas de asociación pueden ser estudiadas e interpretadas desde un punto de vista jerárquico \cite{srikant1997}, por ejemplo, en el problema de la cesta de la compra, la regla   \textit{\{Manzanas, Platanos\} $\rightarrow$ \{Yogurt\}}  podría ser reemplazada por \textit{\{Fruta\} $\rightarrow$ \{Yogurt\}}. Esto nos permite lograr un mayor grado de abstracción, lo que es interesante para obtener información relevante. Esta abstracción también nos permite resumir enormemente el conjunto de reglas, lo que resultará en un análisis más sencillo de los problemas en cuestión  sin perder información relevante por el camino. Las reglas de asociación generalizadas también son interesantes para los entornos Big Data, ya que el tamaño de los resultados obtenidos puede ser altamente resumido, mejorando consecuentemente el tiempo y los recursos de procesamiento. 
 
 \subsubsection{Aplicaciones}
 
@@ -116,14 +116,14 @@ En este punto, entraremos a hablar de las conocidas \textbf{V`s del Big Data}, a
 \begin{enumerate}
 \item \textbf{Volumen}: La relación de esta palabra con el concepto Big Data es clara. Y es que el tamaño de los datos continúa aumentando, hasta volúmenes de los mismos nunca antes vistos. 
 \item \textbf{Variedad}: Los tipos de los datos son muy distintos y provienen de fuentes muy dispares. 
-\item \textbf{Velocidad}: Los datos son muy volubles y deben ser recogidos y analizados rápidamente, véase por ejemplo en el concepto de una aplicación de Big Data en bolsa, donde tan solo un segundo puede suponer perdidas o beneficios muy importantes. 
+\item \textbf{Velocidad}: Los datos son muy volubles y deben ser recogidos y analizados rápidamente, véase por ejemplo en el concepto de una aplicación de Big Data en bolsa, donde tan solo un segundo puede suponer pérdidas o beneficios muy importantes. 
 \item \textbf{Variabilidad}: Los datos pueden cambiar de estructura o interpretación. 
 \item \textbf{Valor}: En última instancia, sin valor, no hay Big Data y es que estos datos una vez procesados deben aportar conocimiento y valor a la empresa y organización. 
 \end{enumerate}
 
 \subsection{Spark}
  
- Una de las tecnologías más extendidas dentro del Big Data es Apache Spark.  Este es un framework opensource de procesamiento distribuido cuya funcionalidad se centra en la orquestación de trabajos en una red de computación o cluster. Spark es un framework muy potente que permite al usuario realizar prácticamente todas las tareas de un pipeline de análisis de datos habitual de manera distribuida y por supuesto, mucho más eficiente que si fuera secuencial. En cuanto a versatilidad y posibilidad de adaptación también tiene grandes ventajas, pues ofrece APIs para trabajar en distribuido desde los lenguajes más usados en análisis de datos como R, Python, Sacala o Java entre otros. En esta linea de versatilidad se encuentran también los datos con los que este puede trabajar yendo estos de más a menos estructurados sin causar problemas mayores al procesado. 
+ Una de las tecnologías más extendidas dentro del Big Data es Apache Spark.  Este es un framework opensource de procesamiento distribuido cuya funcionalidad se centra en la orquestación de trabajos en una red de computación o clúster. Spark es un framework muy potente que permite al usuario realizar prácticamente todas las tareas de un pipeline de análisis de datos habitual de manera distribuida y por supuesto, mucho más eficiente que si fuera secuencial. En cuanto a versatilidad y posibilidad de adaptación también tiene grandes ventajas, pues ofrece APIs para trabajar en distribuido desde los lenguajes más usados en análisis de datos como R, Python, Sacala o Java entre otros. En esta línea de versatilidad se encuentran también los datos con los que este puede trabajar yendo estos de más a menos estructurados sin causar problemas mayores al procesado. 
  
 La arquitectura de Spark, quedaría definida por un nodo maestro, desde el cual se ejecutan los programas de usuario, un nodo que se encarga de distribuir los datos y una serie de nodos denominados \textit{workers}, que serían los encargados de ejecutar su parte del trabajo enviando de nuevo al nodo de orquestación los resultados, que serían unidos y ofrecidos al nodo maestro como una misma entidad. Podemos ver una esquema de esta arquitectura en la figura \ref{arquitecturaspark}. 
  
@@ -140,15 +140,15 @@ La arquitectura de Spark, quedaría definida por un nodo maestro, desde el cual s
 El mundo del Big Data, como en todos los ámbitos de las TIC no recae sobre una sola tecnología sino que hay varias donde elegir, y que a menudo, son competencia entre si. Este es el caso de Spark y Hadoop. Hadoop fue el primer framework de  Big Data, está basado en la tecnología Map-Reduce (figura \ref{map-reduce}) y ha sido y es ampliamente utilizado para problemas de Big Data. 
 
   \begin{figure}
-	\includegraphics[width=8cm]{./Capitulo3/imagenes/map.png}
+	\includegraphics[width=10cm]{./Capitulo3/imagenes/map.png}
 	\centering
 	\caption{Arquitectura Map Reduce.}
 	\label{map-reduce}
 \end{figure}
 
-Una de las características principales de Hadoop recae en el hdfs, un sistema de archivos distribuido  que permite trabajar  con una gran cantidad de datos así como escalar de manera sencilla en el caso de necesitar más recursos o mas capacidad de procesado. El hdfs, también aporta redundancia y tolerancia a fallos, pero por contra, al tener los datos en disco los procesos son mas lentos en comparación a a Spark. 
+Una de las características principales de Hadoop recae en el hdfs, un sistema de archivos distribuido  que permite trabajar  con una gran cantidad de datos así como escalar de manera sencilla en el caso de necesitar más recursos o más capacidad de procesado. El hdfs, también aporta redundancia y tolerancia a fallos, pero por contra, al tener los datos en disco los procesos son más lentos en comparación a Spark. 
  
-En cuanto a la versatilidad y usabilidad, Spark también sería mas recomendable dado que como hemos mencionado anteriormente tiene APIs muy sencillas para los lenguajes más usados. Estas ventajas, han hecho que recientemente el uso de Spark se haya visto incrementado en comparacion con Hadoop.  
+En cuanto a la versatilidad y usabilidad, Spark también sería más recomendable dado que como hemos mencionado anteriormente tiene APIs muy sencillas para los lenguajes más usados. Estas ventajas, han hecho que recientemente el uso de Spark se haya visto incrementado en comparación con Hadoop.  
 
 \subsection{Aplicaciones} 
  
@@ -169,13 +169,13 @@ Twitter nace en Estados Unidos en el año 2006, partiendo de la idea de los antig
 
 El crecimiento de la red social en los últimos años ha sido exponencial, hecho que no la ha alejado de tener serios problemas de rentabilidad, pero que confirman su éxito y aceptación por parte del gran público. A principios de 2010 el número de usuarios activos al mes de la misma se fijaba en torno a los 30 millones, número claramente superado en la actualidad donde se estima en torno a los 313 millones de usuarios activos mensuales (Dreamgrow Marketing, 2017).
 
-Aunque en sus inicios el número maximo de caracteres que podíamos encontrar en un tweet era 180, en 2017 la red social aumentó el número de palabras en cada tuit a 280, lo que en conjunción con nuevas medidas como la facilidad para incluir videos o demás contenido multimedia y lo vistoso de estas publicaciones con un diseño intachable, constatan la salud de la red social. 
+Aunque en sus inicios el número máximo de caracteres que podíamos encontrar en un tweet era 180, en 2017 la red social aumentó el número de palabras en cada tuit a 280, lo que en conjunción con nuevas medidas como la facilidad para incluir videos o demás contenido multimedia y lo vistoso de estas publicaciones con un diseño intachable, constatan la salud de la red social. 
 
 \subsection{Funcionamiento}
 
-El funcionamiento de la red social en sí trivial, en esta podemos acotar un rol muy sencillo, el de \textbf{seguidor} que serán aquellas personas que quieren seguir nuestras publicaciones y de las cuales podremos ser seguidores o no, es decir, puede no es de obligada existencia el carácter bidireccional en una relación de `amistad' dentro de esta red social al igual que existe en otras redes sociales como por ejemplo Facebook. 
+El funcionamiento de la red social es en sí trivial, en esta podemos acotar un rol muy sencillo, el de \textbf{seguidor} que serán aquellas personas que quieren seguir nuestras publicaciones y de las cuales podremos ser seguidores o no, es decir, no es de obligada existencia el carácter bidireccional en una relación de `amistad' dentro de esta red social al igual que existe en otras redes sociales como por ejemplo Facebook. 
 
-Este tipos de relaciones, son muy interesantes y han sido estudiadas en la literatura como parte de la teoría de grafos y ha sido extendido a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle en las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows} ). Por otro lado, sí que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
+Este tipos de relaciones, son muy interesantes y han sido estudiadas en la literatura como parte de la teoría de grafos y ha sido extendido a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle en las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows}). Por otro lado, sí que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
 
 \subsection{Anatomía de un tuit}
 \label{anatomia}
