@@ -1,0 +1,69 @@
+%?????????????????????????
+% Nombre: capitulo6.tex  
+% 
+% Texto del capitulo 6
+%---------------------------------------------------
+
+\chapter{Metodología}
+\label{meto}
+En este capítulo veremos la metodología seguida para la creación del sistema. Entraremos en detalle en las tecnologías y técnicas usadas en el modulo de obtención de datos  y del preprocesado, dejando la experimentación y los detalles del proceso de minería de datos con reglas de asociación para el capítulo \ref{mineria}. Para una mejor comprensión se ha plasmado el flujo de información en la figura \ref{flujo}.
+
+ \begin{figure}
+	\includegraphics[width=12cm]{./Capitulo5/imagenes/flujo.png}
+	\centering
+	\caption{Arquitectura del sistema.}
+	\label{flujo}
+\end{figure}
+
+\section{Dataset}
+
+En esta sección veremos, el proceso de obtención de los datos así como la persistencia de los mismos y una breve explicación de la composición del dataset que será utilizado en el proceso experimental. 
+
+\subsection{Obtención de datos}
+Los datos han sido obtenidos mediante la API de streaming de Twitter. Esta API, permite obtener datos sobre un determinado hashtag, usuario o tópico indefinidamente. Para obtener los datos, se ha llevado a cabo un script en python que realiza las siguientes tareas:
+\begin{enumerate}
+	\item Identifica la app con las credenciales de twitter. 
+	\item Obtiene parámetros de entrada, en nuestro caso, queremos tuits relativos a las elecciones del 28A , nuestro parámetro de búsqueda será  28A, 28Abril y Elecciones2019.
+	\item Obtiene datos y los guarda en la base de datos de manera indefinida hasta que no se pare el script. 
+\end{enumerate}
+
+La API de streaming de Twitter es muy útil para analizar datos en tiempo real, pero en nuestro caso también es útil para almacenar datos a lo largo del tiempo de manera que se pueda obtener un dataset de gran tamaño. Dado que la obtención de datos se realizó durante el mes de abril, mes en el que continuamente se generaban tuits relativos al 28A, se consideró obtener tuits relativos a este hashtag de manera que la experimentación y los patrones, podrían ser contrastados con eventos de la vida social y política de España durante el mes de abril de 2019. 
+
+\subsection{Persistencia}
+
+La persistencia de los datos, se ha llevado a cabo con una de las bases de datos más usadas dentro del paradigma Big Data, MongoDB. Esta base de datos, es noSQL\footnote{Not Only SQL}. Dado que en nuestro sistema no necesitamos una gran consistencia, sino que buscamos la versatilidad y facilidad de conexión con las APIs de Python, hemos considerado MongoDB como la mejor base de datos para nuestro proceso. 
+
+\subsection{Especificaciones de los datos}
+\label{data}
+El conjunto final de datos, se compone de 1517476 registros (tuits), con un lenguaje de 140727 palabras o símbolos distintos. El tamaño máximo del texto de un tweet es de 280 caracteres, y aunque la obtención de datos incluye información relativa al usuario que emite el tweet, en este análisis solo hemos mantenido el texto pues los demás datos pueden ser útiles en trabajos futuros pero no en este. 
+
+\section{Preprocesado}
+
+El preprocesado es una de las tareas más relevantes e importantes dentro del flujo de un proyecto de ciencia de datos. Podríamos definirlo como el conjunto de técnicas enmarcadas en ciencia de datos cuya finalidad es obtener datos de mayor calidad de forma que los algoritmos de minería de datos, bien sean descriptivos o predictivos, puedan aplicarse de una manera más eficiente y con mejores resultados. 
+
+En minería de textos, el preprocesado de datos es ligeramente diferente a otros problemas de minería de datos, dada la naturaleza de los textos como datos no estructurados. En esta sección, veremos las técnicas de preprocesado de textos llevado a cabo sobre el dataset descrito en el punto \ref{data}.
+
+\subsection{Tokenización y limpieza}
+
+En este punto, estudiaremos las técnicas llevadas a cabo para limpiar los datos provenientes de Twitter. Para conseguir estas tareas en python, el primer paso es crear dataframes de Pandas, sobre los cuales podremos ir aplicando técnica de minería de textos mediante applys y herramientas de procesamiento de lenguaje natural. Las técnicas usadas, han sido:
+
+\begin{enumerate}
+	\item El primer paso pasa por eliminar los enlaces. Para ello, creamos una expresión regular que elimina este contenido, teniendo en cuenta que los enlaces no son necesarios en el proceso de extracción de reglas de asociación, pues para nuestras transacciones textuales solo necesitamos los ítems o palabras mencionados en un tweet. 
+	\item Tras esto hemos tokenizado cada palabra haciendo uso de un tokenizador especial para Twitter implementado dentro del paquete \textit{nltk}. Este paquete tokenizador mantiene caracteres especiales como los emoticonos y procesa de una manera distinta los signos de puntuación. Un ejemplo de uso podría ser, el tweet `\textit{Esto es un ejemplo!!!! Con emoticonos :) y símbolos)}' seria tokenizado como, `\textit{Esto, es, un, ejemplo, !!!, Con, emoticonos, :), y, símbolos, )}'. Esto es así debido a que se mantienen símbolos para permitir analizar un tipo de lenguaje coloquial, algo muy útil para dominios como el de Twitter.
+	\item El tercer paso es eliminar las palabras vacías en Español. 
+	\item En nuestro análisis no nos interesan los signos de puntuación como \textit{!}, pero sí que nos interesa mantener otros como  \textit{:)}, por ello, una solución es eliminar aquellos ítems de tamaño inferior a 2 símbolos, con lo que mantendremos emoticonos y eliminaremos signos de puntuación y posibles tokens erróneos. 
+	\item Se ha creado una lista especial de palabras vacías del dominio de Twitter, tales como \textit{lol, RT, via}. Tras su creación, se han eliminado del dominio del problema pues son palabras que meten ruido en el dataset y no aportan nada.
+	\item El sexto paso para la limpieza de los datos ha sido el paso de todos los tokens a utf-8, ya que había caracteres especiales que no sirven en nuestro procesado. 
+	\item El siguiente paso, se ha basado en el paso a minúsculas de todos los tokens.
+	\item Tras el paso a minúsculas, se ha utilizado un proceso de corrección del lenguaje para evitar palabras mal escritas o con faltas de ortografía. Para ello para cada token, se ha entrenado un \textit{spellcheker} y en caso de que el resultado sea una palabra errónea con un valor de confianza máximo, se cambia por la correcta. 
+	\item Por último se han eliminado los tokens compuestos íntegramente por números.
+\end{enumerate}	
+
+Es necesario mencionar antes de finalizar esta sección que dos de las labores, que tradicionalmente se realizan en procesado de tuits, como son la eliminación de usuarios y hashtags, en nuestro caso no se han llevado a cabo pues queremos ver qué ítems se relacionan con qué hashtags y con qué personajes y partidos políticos, por lo que para nuestro análisis ítems como @sanchezcastejon o @vox\_es entre otros son muy interesantes. 
+
+\subsection{Big Data}
+Aunque el proceso de limpieza en el cluster de computación no es privativo en cuanto al tiempo de ejecución, se ha trasladado al paradigma BigData. Para realizar esta labor, se ha usado la API de Spark para Python, \textit{pyspark}. Esta API pone a nuestro servicio múltiples funciones que permiten distribuir el trabajo de una manera sencilla, en este caso dado que tenemos un conjunto de independiente de datos muy grande sobre el que realizar un flujo de procesos, la mejor opción para distribuir los datos ha sido mediante \textit{mapPartitions}, de manera que el sistema está preparado para aumentar el número de tuits aún más si cabe y obteniendo un mejor rendimiento. En el siguiente capítulo, continuaremos ahondando en el proceso de distribución de los datos y así como un estudio comparativo de la obtención de reglas de forma secuencia y de forma distribuida mediante Spark.
+
+\pagebreak
+\clearpage
+%---------------------------------------------------

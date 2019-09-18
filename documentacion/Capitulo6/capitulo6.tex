@@ -1,0 +1,170 @@
+%?????????????????????????
+% Nombre: capitulo6.tex  
+% 
+% Texto del capitulo 6
+%---------------------------------------------------
+
+\chapter{Minería de datos}
+\label{mineria}
+En este capítulo abordaremos los objetivos finales del proyecto, de aplicación de técnicas de minería de datos, obtención de patrones y puesta en valor del sistema final mediante técnicas de visualización. También, se abordará la experimentación y se analizará un caso de uso relativo a las elecciones generales  del 28 de abril de 2019.
+
+\section{Transacciones textuales}
+Como vimos en el capítulo \ref{estado} las reglas de asociación pueden aplicarse sobre texto para obtener relaciones de co-ocurrencia entre ítems (palabras) dentro de una base de datos textual, esto nos permite resumir la información y obtener patrones interesantes que relacionan una palabra con personas, marcas... en nuestro caso políticos y partidos políticos. 
+
+El primer paso para poder aplicar algoritmos de extracción de reglas sobre texto, pasa por crear transacciones de texto. Estas fueron definidas en el paper \cite{baus}, y teniendo una colección de documentos cada uno de estos documentos sería una transacción, y cada una de las palabras presentes en el vocabulario constituirían un ítem, que podría aparecer o no en cada una de las transacciones, la representación mas eficiente, al menos en tamaño, pasaría por usar booleanos dado que tenemos matrices muy dispersas y de gran tamaño. 
+
+\section{Reglas de asociación}
+
+En esta sección veremos todo lo relativo al proceso de extracción de reglas de asociación, desde el estudio teórico de los algoritmos utilizados a las complicaciones encontradas dado el volumen de los datos y la solución Big Data aportada. 
+
+\subsection{Algoritmos usados}
+
+En esta sección veremos una introducción teórica  a los algoritmos empleados en el proceso experimental. Dado que el objetivo del trabajo no está ligado a la mejora o estudio matemático de los algoritmos no entraremos en detalle en los mismos, sino que se mencionará la idea subyacente de su funcionamiento para facilitar la comprensión de los puntos siguientes. 
+
+\subsubsection{Apriori}
+
+El algoritmo \textbf{Apriori}, fue propuesto por Agrawal y Srikant en 1994 \cite{apriori} y desde entonces sigue siendo el algoritmo más extendido para la obtención de itemsets frecuentes, con los que construiremos en una segunda etapa las reglas de asociación. Se basa en el principio de que si un itemset es frecuente, entonces todos sus subconjuntos también lo son por lo que al encontrar uno de estos, podremos podar el árbol de búsqueda evitando hacer comprobaciones y aumentando la eficiencia. Para obtener los itemsets frecuentes, el algoritmo en base a un valor mínimo de soporte fijado por el experto en la materia, generará todas las posibles combinaciones de itemsets y comprobará si son o no frecuentes. En cada iteración, se generan todos los posibles itemsets distintos que se pueden formar combinando los de la anterior, por lo que los itemsets irán creciendo de tamaño.
+
+Apriori tiene bastantes factores o limitaciones relacionados con la eficiencia del algoritmo y que pueden afectar en gran medida al proceso de minería de datos que en algunos problemas específicos podría incluso resultar prohibitivo por tiempos o espacio. Algunas de estas limitaciones serían:
+
+\begin{enumerate}
+	\item Soporte: Umbrales demasiado bajos conllevarán a una explosión del número de itemsets frecuentes lo que está directamente relacionado con una mayor necesidad de memoria y tiempo. 
+	\item Número de ítems distintos: Esta limitación, está ligada a la necesidad del algoritmo apriori de almacenar el soporte de cada uno de éstos, lo que puede conllevar problemas de memoria. 
+	\item Tamaño de la base de datos: Este punto está ligado, al anterior, pero en lugar de tener en cuenta los ítems individuales se tienen en cuenta el número de transacciones. Apriori al ser exhaustivo realiza múltiples pasadas por toda la base de datos por lo que el tiempo de ejecución puede ser muy elevado o incluso no llegar a acabar en varios días o semanas. 
+	\item Longitud de las transacciones: Ligado al problema anterior, si las transacciones a su vez están formadas por muchos ítems, almacenar esto en memoria puede llegar a ser privativo e incluso imposible. 
+\end{enumerate}
+
+Estas limitaciones, nos han llevado al estudio de otro método menos sensible a los requisitos temporales o de espacio, de cara a las posibles ampliaciones del problema a mayores cantidades de datos aún. Este método es el algoritmo FP-Growth y lo estudiaremos en el siguiente punto.
+
+\subsubsection{FP-Growth}
+
+El algoritmo \textbf{FP-Growth} \cite{fpg} fue propuesto en el año 2000, como una solución a los problemas de memoria generados por los métodos típicos como el Apriori, visto anteriormente. Es un algoritmo muy eficiente y ampliamente extendido en problemas y soluciones que podrían ser enmarcados bajo el nombre de Big Data. 
+
+\textbf{FP-Growth}, crea un modelo comprimido de la base datos original utilizando una estructura de datos que denomina como \textbf{\textit{FP-tree}} que está formada por dos elementos esenciales:
+
+\begin{itemize}
+	\item Grafo de transacciones: Gracias a este grafo la base de datos completa puede abreviarse. En cada nodo, se describe un itemset y su soporte que se calcula siguiendo el camino que va desde la raíz hasta el nodo en cuestión.
+	\item Tabla cabecera: Es una tabla de listas de ítems. Es decir, para cada ítem, se crea una lista que enlaza nodos del grafo donde aparece. 
+\end{itemize}
+
+Una vez se construye el árbol, utilizando un enfoque recursivo basado en divide y vencerás, se extraen los itemsets frecuentes. Para ello primero se obtienen el soporte de cada uno de los ítems que aparecen en la tabla de cabecera, tras lo cual, para cada uno de los ítems que superan el soporte mínimo se realizan los siguientes pasos:
+
+\begin{enumerate}
+	\item Se extrae la sección del árbol donde aparece el ítem reajustando los valores de soporte de los ítems que aparecen en esa sección.
+	\item Considerando esa sección extraída, se crea un nuevo \textbf{\textit{FP-tree}}.
+	\item Se extraen los itemsets que superen el mínimo soporte de este último \textbf{\textit{FP-tree}} creado. 
+\end{enumerate}
+
+\subsection{Reglas de asociacion en Big Data}
+
+En función a lo estudiado sobre los dos algoritmos anteriores, es obvio que la memoria que ocupa FP-Growth es mucho menor que la generada por Apriori, así como al generar itemsets por medio del principio divide y vencerás,  FP-Growth se presta a ser usado en entornos distribuidos como por ejemplo el entorno de Big Data, Apache Spark, aumentando sus prestaciones de manera notable. 
+
+Debido a esto nos hemos decantado por usar el algoritmo FP-Growth presente en PySpark para el entorno distribuido, aunque hemos usado Apriori para intentar comparar el procesado de ambos algoritmos. Como veremos en la próxima sección Apriori solo ha conseguido funcionar con un conjunto de datos muy pequeño y niveles de soporte muy altos, constatando su nula funcionalidad para problemas de Big Data. 
+
+Para la extracción de reglas, el algoritmo FP-Growth ha sido ejecutado con umbrales mínimos de soporte y confianza de 0.001 y 0.6 respectivamente. 
+
+\section{Big Data vs secuencial}
+Para poder tener un punto de vista crítico sobre las mejoras que el Big Data, ofrece frente a soluciones secuenciales se llevo a cabo un estudio comparativo entre la solución secuencial y Big Data. 
+
+\subsection{Comparativa preprocesado}
+Acorde a la parte de preprocesado de datos de nuestro sistema, en la tabla \ref{tablapre} podemos ver una comparativa de los resultados y tiempos de ejecucion del preprocesado acorde al paradigma Big Data o el tradicional procesado secuencial. 
+
+\begin{table}[]
+	\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Modo} & \textbf{Rango}        & \textbf{Media} \\ \hline
+		Secuencial    & {[}12,3min-14,1min{]} & 12,67min       \\ \hline
+		Distribuido   & {[}9,10min-10,9min{]} & 10,1min        \\ \hline
+	\end{tabular}
+	\caption{Comparación de preprocesado en secuencial y Big Data. }
+	\label{tablapre}
+\end{center}
+\end{table}
+
+Acorde a los resultados de la anterior tabla, podemos concluir como la diferencia entre preprocesado en secuencial y Spark no es muy pronunciada, debido sin duda al tiempo de creación de contexto de Spark. 
+
+\subsection{Comparativa extracción de reglas}
+
+Sobre la extracción de reglas en modo secuencial, solo pudieron obtenerse resultados con valores de soporte muy altos y lejanos de la realidad de 0.1, por lo que solo se extraen reglas muy obvias. Apriori, no ha sido capaz de funcionar ni siquiera con un 10\%  de los datos, ni en secuencial ni en distribuido, por lo que el estudio comparativo y experimentación ha sido imposible debido a las limitaciones técnicas del algoritmo. Estas limitaciones radican en que el algoritmo Apriori es capaz de trabajar con un gran numero de transacciones pero con un reducido número de ítems, del orden de  10000 tipos distintos, en nuestro caso tenemos  mas de 1500000 transacciones, algo que aunque complicado no sería problema, pero con un lenguaje de 120000 ítems distintos, lo que imposibilitan la ejecución de Apriori que en estuvo más de 4 días en ejecucion sin apenas obtener resultados. En cuanto al algoritmo FP-Growth en formato distribuido, el algoritmo tarda el orden en 1 a 2 horas en terminar su ejecucion dependiendo de si tenemos valores de soporte de  0.01 o 0.001. 
+
+\section{Caso de uso: 28A}
+El pasado 28 de abril de 2019 tuvieron lugar las elecciones al generales  para elegir el Gobierno de España. El PSOE \footnote{Partido Socialista Obrero Epañol} ganó las elecciones, que además pasarán a la historia como una de las elecciones generales donde la participación ciudadana fue más alta, situándose esta en el 71,76\%. Esta alta participación, junto con el `clima' político de la época en el país, hacen de un análisis de patrones sobre las conversaciones generadas sobre el 28 de abril en Twitter, una aplicación muy interesante. Con el que intentaremos dar respuestas a preguntas como: 
+
+\begin{itemize}
+	\item ¿Hay relación entre patrones que asocian términos negativos o positivos con determinados políticos y los resultados posteriores?
+	\item ¿Qué preocupaba a la sociedad española durante los días previos a las elecciones?
+\end{itemize}
+
+En las siguientes secciones, veremos patrones interesantes hallados así como métodos de visualización que permitan una mejor interpretación de las reglas obtenidas, con las que trataremos de dar respuesta a estas preguntas. 
+\subsection{Patrones interesantes}
+En este capítulo entramos en detalle sobre algunos patrones interesantes de las reglas. Para una mejor comprensión de esta sección, iremos detallando patrones que puedan ayudar a responder las preguntas de investigación propuestas al inicio de esta sección.
+
+\subsubsection{¿Hay relación entre patrones que asocian términos negativos o positivos con determinados políticos y los resultados posteriores?}
+A priori, parece que no se puede trazar una relación entre los términos negativos y positivos y los resultados posteriores, debido a que se generan casi por igual número contenido que trata de apoyar como contenido dedicado a descalificar y atacar a los otros partidos. Por tanto, este tipo de análisis debería ser realizado de manera más exhaustiva y por circunscripciones electorales. En la tabla \ref{posneg} podemos ver algunos de estos patrones.
+
+\begin{table}
+	\centering
+	\begin{tabular}{|l|l|l|} 
+		\hline
+		Antecedente                          & Consecuente & Confianza  \\ 
+		\hline
+	mejor, candidato & pablo\_casado     & 0.999        \\ 
+		\hline
+		porespaña                 & vox  & 1.0        \\ 
+		\hline
+		presagio, fantastico              & santi\_abascal    & 0,993      \\ 
+		\hline
+	amenazado, agredido, simpatizantes                    & vox\_es     & 1.0        \\
+		\hline
+			blas, lezo, madrid, victoria                    & colon     & 0.999     \\
+		\hline
+	\end{tabular}
+	\caption{Reglas de apoyo y en contra. }
+	\label{posneg}
+\end{table}
+
+
+
+\subsubsection{¿Qué preocupaba a la sociedad española durante los días previos a las elecciones?} 
+ 
+Podemos ver como en la sociedad española, había casi por igual preocupación por la irrupción de la extrema derecha así como por que el PSOE se mantuviera en el poder y el trato de favor que este partido pudiera tener con los partidos nacionalistas catalanes o vascos. Esto denota, como en España a pesar de que el bi-partidismo es cosa del pasado, aún los bloques son derecha e izquierda y las redes sociales en momentos de elecciones tienen un flujo de generación de contenido en contra y a favor muy similar. Algo que se vio remarcado con unos resultados donde el bloque de la derecha y la izquierda están casi igualados. Algunas reglas que constatan pueden verse en la tabla \ref{sociedad}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|l|l|l|} 
+		\hline
+		Antecedente                          & Consecuente & Confianza  \\ 
+		\hline
+		complicidad, socios, pnv, proetarras & sánchez     & 1.0        \\ 
+		\hline
+		pnv, socios, sánchez                 & hostigando  & 1.0        \\ 
+		\hline
+		junto, independencia                 & cataluña    & 0,993      \\ 
+		\hline
+		miedo, nadie, 28a                    & vox\_es     & 1.0        \\
+		\hline
+	\end{tabular}
+	\caption{Reglas interesantes sobre los temas tratados en el discurso político. }
+		\label{sociedad}
+\end{table}
+
+
+\subsection{Visualización}
+En esta última sección del capítulo de minería de datos, abordaremos el último de los objetivos visto en la sección \ref{objetivos}. Trataremos de poner en valor el sistema con técnicas de visualización que permitan de una manera intuitiva para el usuario final obtener información sobre el gran conjunto de datos de entrada. 
+
+Dado que el número de reglas y términos  es muy elevado, una manera interesante de visualizar los datos es crear \textit{tag clouds} sobre los términos que aparecen en las reglas, de esta manera podremos en un mismo análisis gráfico ver todas las palabras asociadas con un determinado término, por ejemplo para visualizar algunas de las reglas relativas a Sánchez, podemos tener el gráfico \ref{tagcloud}.
+
+ \begin{figure}
+	\includegraphics[width=7cm]{./Capitulo6/imagenes/cloud.png}
+	\centering
+	\caption{Reglas sobre Sánchez en formato tag cloud.}
+	\label{tagcloud}
+\end{figure}
+
+\subsection{Discusión sobre las reglas}
+
+En un conjunto de datos tan grande como el utilizado el número de reglas obtenidas es muy grande, lo que hace a ojos de una persona inexperta en política que sea una tarea muy complicada el obtener patrones relevantes, igualmente ha quedado constatado que el uso de reglas de asociación en Big Data textual es un método potente y que resume el contenido de de varios millones de tuits en sets de reglas, mas cómodos de trabajar y sobre todo, con relaciones sólidas entre los términos. En cuanto a la visualización, es menester crear nuevas técnicas de visualización de reglas para Big Data pues las técnicas actuales tienen   muchas limitaciones cuando el número de reglas es muy elevado.
+\pagebreak
+\clearpage
+%---------------------------------------------------
