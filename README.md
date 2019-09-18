@@ -9,11 +9,11 @@ La minería de medios sociales es uno de los ámbitos de aplicación de la miner
 # Objetivos del proyecto
 
 1. Estudio del estado del arte en el campo de la minería de opinión basada en Big Data en plataformas de microblogging.
-2. Desarrollo y aplicación de una metodología de preprocesado de datos eficaz para conjuntos de textos provenientes de plataformas de micro- blogging.
+2. Desarrollo y aplicación de una metodología de preprocesado de datos eficaz para conjuntos de textos provenientes de plataformas de microblogging.
 3. Aplicación de técnicas de minería de datos descriptiva para obtener patrones interesantes en los datos.
 4. Obtención y salvado de un corpus de datos de gran tamaño que permi- tan elaborar la experimentación y validación del sistema final.
 5. Experimentación, análisis de resultados y comparación de los mismos con posibles eventos políticos y sociales.
-6. Puesta en valor del sistema mediante técnicas de visualización dinámi- cas.
+6. Puesta en valor del sistema mediante técnicas de visualización dinámicas.
 
 # Web con la presentación del proyecto
 
